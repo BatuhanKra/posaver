@@ -1,0 +1,26 @@
+---
+import { url } from '../lib/url';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Sayfa bulunamadı — POSAVER">
+  <div class="page" data-tone="light">
+    <header class="page__head">
+      <p class="section__kicker">404</p>
+      <h1>Bu sayfa çöpe gitmiş olabilir.</h1>
+      <p class="section__lead">Aradığınız sayfayı bulamadık.</p>
+      <a class="btn btn--dark" href={url('/')}>Ana sayfaya dön</a>
+    </header>
+  </div>
+</Layout>
+
+<style>
+  .btn--dark {
+    justify-self: start;
+    color: var(--espresso);
+  }
+  .btn--dark:hover {
+    background: var(--espresso);
+    color: var(--crema);
+  }
+</style>

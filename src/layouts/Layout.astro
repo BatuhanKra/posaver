@@ -1,0 +1,81 @@
+---
+import { url } from '../lib/url';
+import '../styles/global.css';
+import CupCanvas from '../components/CupCanvas.astro';
+import Menu from '../components/Menu.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  showCup?: boolean;
+}
+
+const {
+  title = 'POSAVER — Kahvenin kokusu çöpe gitmesin',
+  description = 'Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir bir koku girdisine dönüştürüyoruz.',
+  showCup = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#2a1a12" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <title>{title}</title>
+    <script is:inline>
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('anim');
+    </script>
+  </head>
+  <body>
+    <a class="logo" href={url('/')} aria-label="POSAVER ana sayfa">
+      <span class="logo__name">POSAVER</span>
+      <span class="logo__sub">Sustainable Fragrance</span>
+    </a>
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {showCup && <CupCanvas />}
+    <Menu />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .logo {
+    position: fixed;
+    top: clamp(1rem, 2.4vw, 2rem);
+    left: var(--gutter);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    text-decoration: none;
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+  .logo__name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .logo__sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    opacity: 0.8;
+  }
+</style>

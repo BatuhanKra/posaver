@@ -1,0 +1,272 @@
+@import '@fontsource-variable/fraunces/opsz.css';
+@import '@fontsource-variable/inter-tight/index.css';
+
+:root {
+  --forest: #1f3a2b;
+  --espresso: #2a1a12;
+  --roast: #8a5a3b;
+  --moss: #6f8f4e;
+  --crema: #e9dcc9;
+  --paper: #ffffff;
+
+  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-body: 'Inter Tight Variable', system-ui, sans-serif;
+
+  --text-hero: clamp(3rem, 8.5vw, 8rem);
+  --text-h2: clamp(2.25rem, 5vw, 4.5rem);
+  --text-h3: clamp(1.4rem, 2.2vw, 2rem);
+  --text-lead: clamp(1.15rem, 1.6vw, 1.5rem);
+  --text-body: clamp(1rem, 1.1vw, 1.125rem);
+  --text-small: 0.8125rem;
+
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --section-pad: clamp(5rem, 14vh, 10rem);
+  --measure: 70ch;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 144;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-hero);
+}
+h2 {
+  font-size: var(--text-h2);
+}
+h3 {
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  font-variation-settings: 'opsz' 48;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Bölüm iskeleti ---- */
+.section {
+  position: relative;
+  min-height: 100svh;
+  padding: var(--section-pad) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(2rem, 5vh, 4rem);
+}
+
+.section[data-tone='light'] {
+  background: var(--paper);
+  color: var(--espresso);
+  --muted: rgb(42 26 18 / 0.62);
+  --line: rgb(42 26 18 / 0.14);
+  --accent: var(--roast);
+}
+.section[data-tone='dark-espresso'] {
+  background: var(--espresso);
+  color: var(--crema);
+  --muted: rgb(233 220 201 / 0.64);
+  --line: rgb(233 220 201 / 0.16);
+  --accent: var(--moss);
+}
+.section[data-tone='dark-forest'] {
+  background: var(--forest);
+  color: var(--crema);
+  --muted: rgb(233 220 201 / 0.66);
+  --line: rgb(233 220 201 / 0.18);
+  --accent: var(--moss);
+}
+
+.section__kicker {
+  font-size: var(--text-small);
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.section__lead {
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.source-note {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 80ch;
+}
+.source-note::before {
+  content: 'Kaynaklar: ';
+  font-weight: 500;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.7rem;
+  border-radius: 999px;
+  font: 500 1rem/1 var(--font-body);
+  text-decoration: none;
+  border: 1px solid currentColor;
+  transition:
+    background 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out);
+}
+.btn--solid {
+  background: var(--crema);
+  color: var(--espresso);
+  border-color: var(--crema);
+}
+.btn--solid:hover {
+  background: var(--paper);
+}
+.btn--ghost:hover {
+  background: rgb(233 220 201 / 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---- Animasyon altyapısı ---- */
+html.anim [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+html.anim [data-split] {
+  visibility: hidden;
+}
+
+.section h2 {
+  max-width: 20ch;
+}
+.section sub {
+  font-size: 0.65em;
+  line-height: 0;
+}
+
+.statement {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 72;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  max-width: 34ch;
+}
+.statement em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: clamp(1.25rem, 2.2vw, 2rem);
+}
+
+html.anim [data-f] {
+  opacity: 0;
+}
+
+/* ---- Sayfa iskeleti (blog, 404) ---- */
+.page {
+  min-height: 100svh;
+  padding: clamp(7rem, 16vh, 10rem) var(--gutter) var(--section-pad);
+  background: var(--paper);
+  color: var(--espresso);
+  --muted: rgb(42 26 18 / 0.64);
+  --line: rgb(42 26 18 / 0.14);
+  --accent: var(--roast);
+}
+.page__head {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 7vh, 5rem);
+}
+.page__head h1 {
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+}
+.list__meta {
+  display: flex;
+  gap: 1.25rem;
+  font-size: var(--text-small);
+  color: var(--accent);
+  font-weight: 500;
+}

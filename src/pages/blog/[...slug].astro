@@ -1,0 +1,118 @@
+---
+import { url } from '../../lib/url';
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getPosts, formatDate, readingMinutes } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} — POSAVER`} description={post.data.description}>
+  <article class="page" data-tone="light">
+    <a class="back" href={url('/blog')}>← Tüm yazılar</a>
+    <header class="post-head">
+      <div class="list__meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span>{readingMinutes(post.body)} dk okuma</span>
+      </div>
+      <h1>{post.data.title}</h1>
+      <p class="section__lead">{post.data.description}</p>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="pager" aria-label="Diğer yazılar">
+      {newer && <a href={url(`/blog/${newer.id}`)}><span>Daha yeni</span>{newer.data.title}</a>}
+      {older && <a href={url(`/blog/${older.id}`)}><span>Daha eski</span>{older.data.title}</a>}
+    </nav>
+  </article>
+</Layout>
+
+<style is:global>
+  .back {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: var(--text-small);
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .post-head {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 46rem;
+    margin-bottom: clamp(2rem, 6vh, 4rem);
+  }
+  .post-head h1 {
+    font-size: clamp(2.4rem, 5.2vw, 4.5rem);
+  }
+  .prose {
+    max-width: 46rem;
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    line-height: 1.75;
+  }
+  .prose > * + * {
+    margin-top: 1.4rem;
+  }
+  .prose h2 {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    margin-top: 3rem;
+    max-width: none;
+  }
+  .prose p,
+  .prose li {
+    max-width: var(--measure);
+  }
+  .prose ul,
+  .prose ol {
+    padding-left: 1.3rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .prose blockquote {
+    margin-left: 0;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--moss);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72;
+    font-size: 1.3em;
+    line-height: 1.4;
+  }
+  .prose a {
+    text-underline-offset: 0.2em;
+  }
+  .pager {
+    margin-top: clamp(3rem, 8vh, 6rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    max-width: 46rem;
+  }
+  .pager a {
+    display: grid;
+    gap: 0.35rem;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .pager span {
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    color: var(--accent);
+    font-weight: 500;
+  }
+</style>

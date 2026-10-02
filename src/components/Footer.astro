@@ -1,0 +1,29 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="footer">
+  <p><strong>{site.name}</strong> · {site.tagline}</p>
+  <p>EU Climate Ideathon 2026 projesi</p>
+</footer>
+
+<style>
+  .footer {
+    background: var(--espresso);
+    color: rgb(233 220 201 / 0.66);
+    padding: 2rem var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    font-size: var(--text-small);
+    border-top: 1px solid rgb(233 220 201 / 0.14);
+  }
+  .footer p {
+    max-width: none;
+  }
+  .footer strong {
+    color: var(--crema);
+    font-weight: 600;
+  }
+</style>

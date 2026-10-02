@@ -1,0 +1,20 @@
+---
+import type { Tone } from '../data/sections';
+
+interface Props {
+  id: string;
+  tone: Tone;
+  kicker?: string;
+  title: string;
+  heading?: 'h1' | 'h2';
+}
+
+const { id, tone, kicker, title, heading = 'h2' } = Astro.props;
+const Heading = heading;
+---
+
+<section class="section" id={id} data-tone={tone} data-section={id} aria-labelledby={`${id}-title`}>
+  {kicker && <p class="section__kicker">{kicker}</p>}
+  <Heading id={`${id}-title`} data-split>{title}</Heading>
+  <slot />
+</section>

@@ -1,0 +1,132 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const stages = [
+  { n: '1', t: 'Yerel pilot', big: '3 kafe', d: ['QR + parti takibi', 'Kalite + rota doğrulama'] },
+  { n: '2', t: 'Aynı bölge', big: 'Yeni kafeler', d: ['Rota optimizasyonu', 'Doluluk + mesafe takibi'] },
+  {
+    n: '3',
+    t: 'Mikro merkezler',
+    big: '3 → 20 → 200',
+    d: ['Bölgesel merkezler', 'AI destekli rota optimizasyonu', 'Standardizasyon'],
+  },
+  { n: '4', t: 'B2B tedarik', big: 'Düzenli koku girdisi', d: ['İzlenebilir kaynak', 'Ölçülmüş çevresel performans'] },
+];
+---
+
+<SectionShell id="buyume" tone="light" kicker="Büyüme" title="Kontrollü büyüme: mikro ağdan makro ölçeğe">
+  <ol class="stairs">
+    {
+      stages.map((s) => (
+        <li class={`stair stair--${s.n}`} data-reveal>
+          <span class="stair__n">{s.n}</span>
+          <h3>{s.t}</h3>
+          <p class="stair__big">{s.big}</p>
+          <ul>
+            {s.d.map((x) => (
+              <li>{x}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="loop" data-reveal>
+    <svg class="loop__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 12a8 8 0 1 1-2.6-5.9" />
+      <path d="M20 4v4h-4" />
+    </svg>
+    <p>
+      <strong>Döngü:</strong> B2B hammadde satışının geliri → yerel toplama ve mikro-merkez operasyonunun devamlılığı.
+    </p>
+  </div>
+</SectionShell>
+
+<style>
+  .stairs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: end;
+  }
+  .stair {
+    border-radius: 1.25rem;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    background: rgb(31 58 43 / 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    min-height: 16rem;
+  }
+  .stair--2 {
+    min-height: 19rem;
+    background: rgb(31 58 43 / 0.1);
+  }
+  .stair--3 {
+    min-height: 22rem;
+    background: rgb(31 58 43 / 0.16);
+  }
+  .stair--4 {
+    min-height: 25rem;
+    background: var(--forest);
+    color: var(--crema);
+    --muted: rgb(233 220 201 / 0.78);
+    --accent: var(--moss);
+  }
+  .stair__n {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+  .stair__big {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96;
+    font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .stair ul {
+    margin: auto 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+  .loop {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--forest);
+    max-width: 52rem;
+  }
+  .loop__icon {
+    flex: none;
+    color: var(--accent);
+  }
+  .loop p {
+    max-width: none;
+  }
+
+  @media (max-width: 899px) {
+    .stairs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
+    .stair,
+    .stair--2,
+    .stair--3,
+    .stair--4 {
+      min-height: 0;
+    }
+  }
+  @media (max-width: 559px) {
+    .stairs {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const values = ['Döngüsel', 'Yerel, izlenebilir ve veri odaklı', 'Koku odaklı ileri dönüşüm', 'Ölçülebilir iklim faydası'];
+---
+
+<SectionShell id="neden-posaver" tone="dark-forest" kicker="Özet" title="Neden POSAVER?">
+  <ul class="values">
+    {
+      values.map((v, i) => (
+        <li class="value" data-reveal>
+          <span class="value__n">{String(i + 1).padStart(2, '0')}</span>
+          <span class="value__t">{v}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="statement closing" data-reveal>
+    POSAVER, dağınık ve hızla bozulan kahve posasını kaynağa yakın ve izlenebilir biçimde toplayıp aromatik değerini geri kazanan; iklim etkisini veriyle ölçerek yüksek katma değerli B2B koku girdisine dönüştürmeyi hedefleyen bütünleşik bir modeldir.
+  </p>
+</SectionShell>
+
+<style>
+  .values {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    max-width: 60rem;
+  }
+  .value {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .value:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .value__n {
+    font-size: var(--text-small);
+    color: var(--accent);
+    min-width: 1.8rem;
+  }
+  .value__t {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144;
+    font-size: clamp(1.7rem, 4vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .closing {
+    max-width: 46ch;
+    font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+    line-height: 1.5;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-variation-settings: normal;
+    letter-spacing: 0;
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+import SectionShell from '../SectionShell.astro';
+import { site } from '../../data/site';
+
+const mail = (subject: string) => `mailto:${site.contactEmail}?subject=${encodeURIComponent(subject)}`;
+---
+
+<SectionShell id="iletisim" tone="dark-espresso" kicker="İletişim" title="Birlikte başlayalım">
+  <div class="ctas">
+    <article class="cta card" data-reveal>
+      <h3>Pilot kafemiz ol</h3>
+      <p>
+        Pilot bölgede ıslak kahve posanızı ayrı toplayıp parti olarak kaydetmek ister misiniz? İlk 3 kafelik pilot ağımızın parçası olun.
+      </p>
+      <a class="btn btn--solid" href={mail('POSAVER — Pilot kafe olmak istiyorum')} data-cup-avoid>Pilot kafemiz ol</a>
+    </article>
+    <article class="cta card" data-reveal>
+      <h3>Koku ortağımız ol</h3>
+      <p>
+        Parfüm, esans veya kozmetik üreticisiyseniz, izlenebilir kahve posası kökenli koku girdisinin değerlendirmesinde bizimle çalışın.
+      </p>
+      <a class="btn btn--solid" href={mail('POSAVER — Koku ortağı olmak istiyorum')} data-cup-avoid>Koku ortağımız ol</a>
+    </article>
+  </div>
+
+  <form class="form" id="contact-form" data-email={site.contactEmail} action={`mailto:${site.contactEmail}`} method="post" enctype="text/plain" data-reveal>
+    <h3>Bize yazın</h3>
+    <div class="form__grid">
+      <label>
+        <span>Ad soyad</span>
+        <input name="name" type="text" autocomplete="name" required />
+      </label>
+      <label>
+        <span>E-posta</span>
+        <input name="email" type="email" autocomplete="email" required />
+      </label>
+      <label class="form__wide">
+        <span>Ben</span>
+        <select name="type">
+          <option>Kafe sahibiyim / yöneticisiyim</option>
+          <option>Parfüm, esans veya kozmetik üreticisiyim</option>
+          <option>Başka bir konuda yazıyorum</option>
+        </select>
+      </label>
+      <label class="form__wide">
+        <span>Mesajınız</span>
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+    </div>
+    <button class="btn btn--solid" type="submit">E-posta uygulamasında aç</button>
+  </form>
+</SectionShell>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const subject = `POSAVER — ${d.get('type')}`;
+    const body = `Ad soyad: ${d.get('name')}\nE-posta: ${d.get('email')}\n\n${d.get('message')}`;
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .ctas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+    max-width: 62rem;
+  }
+  .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .cta p {
+    color: var(--muted);
+    margin-bottom: auto;
+  }
+
+  .form {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 62rem;
+  }
+  .form h3 {
+    font-size: 1.4rem;
+  }
+  .form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 2rem;
+  }
+  .form__wide {
+    grid-column: 1 / -1;
+  }
+  label {
+    display: grid;
+    gap: 0.4rem;
+  }
+  label span {
+    font-size: var(--text-small);
+    color: var(--muted);
+  }
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: var(--crema);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.6rem 0;
+    border-radius: 0;
+    transition: border-color 0.3s var(--ease-out);
+  }
+  select option {
+    color: var(--espresso);
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-bottom-color: var(--moss);
+  }
+  .form .btn {
+    justify-self: start;
+    cursor: pointer;
+  }
+
+  @media (max-width: 719px) {
+    .ctas,
+    .form__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

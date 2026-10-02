@@ -1,0 +1,54 @@
+---
+import { url } from '../../lib/url';
+import SectionShell from '../SectionShell.astro';
+---
+
+<SectionShell id="hero" tone="dark-espresso" kicker="EU Climate Ideathon 2026" title="Kahvenin kokusu çöpe gitmesin." heading="h1">
+  <p class="section__lead hero__lead" data-reveal>
+    Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir
+    bir koku girdisine dönüştürüyoruz.
+  </p>
+  <div class="hero__actions" data-reveal data-cup-avoid>
+    <a class="btn btn--solid" href="#sorun">Nasıl çalışıyor</a>
+    <a class="btn btn--ghost" href={url('/blog')}>Blogu oku</a>
+  </div>
+</SectionShell>
+
+<style is:global>
+  #hero {
+    align-items: flex-start;
+    padding-top: clamp(7rem, 16vh, 10rem);
+  }
+  #hero > * {
+    max-width: min(100%, 48%);
+  }
+  #hero h1 {
+    font-size: clamp(2.8rem, 5.4vw, 5.9rem);
+    max-width: 16ch;
+  }
+  .hero__lead {
+    max-width: 38ch;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  @media (max-width: 767px) {
+    #hero {
+      justify-content: flex-start;
+      gap: 1.5rem;
+    }
+    #hero > * {
+      max-width: 100%;
+    }
+    #hero h1 {
+      font-size: clamp(2.6rem, 13vw, 3.6rem);
+    }
+    .hero__actions .btn {
+      padding: 0.8rem 1.3rem;
+      font-size: 0.95rem;
+    }
+  }
+</style>

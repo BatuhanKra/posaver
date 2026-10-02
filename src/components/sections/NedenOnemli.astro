@@ -1,0 +1,83 @@
+---
+import SectionShell from '../SectionShell.astro';
+---
+
+<SectionShell id="neden-onemli" tone="dark-forest" kicker="Neden önemli?" title="Bir kupa kahvenin görünmeyen iklim bedeli">
+  <ul class="stats">
+    <li class="stat" data-reveal>
+      <p class="stat__v"><span data-count="86">86</span> kat</p>
+      <p class="stat__d">Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi.</p>
+    </li>
+    <li class="stat" data-reveal>
+      <p class="stat__v"><span data-count="18">18</span> milyon ton</p>
+      <p class="stat__d">Dünyada yılda yaklaşık oluşan ıslak kahve posası.</p>
+    </li>
+    <li class="stat" data-reveal>
+      <p class="stat__v stat__v--text">AB Atık Çerçeve Direktifi</p>
+      <p class="stat__d">Biyo-atığın kaynağında ayrıştırılmasını veya ayrı toplanmasını öngörüyor.</p>
+    </li>
+    <li class="stat" data-reveal>
+      <p class="stat__v"><span data-count="24">24</span>–<span data-count="48">48</span> saat</p>
+      <p class="stat__d">Posa bu sürede küflendiği için yerel çözüm gerekiyor.</p>
+    </li>
+  </ul>
+
+  <blockquote class="statement quote" data-reveal>
+    “Küçük ve dağınık görünen bir atık akışı, metan gazının yüksek kısa dönemli ısınma etkisi nedeniyle yerelde hızlı müdahale gerektiriyor.”
+  </blockquote>
+
+  <p class="source-note">IFST (2021); IPCC AR6; EU Waste Framework Directive</p>
+</SectionShell>
+
+<style>
+  .stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 3rem);
+  }
+  .stat {
+    border-top: 1px solid var(--line);
+    padding-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .stat__v {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144;
+    font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--crema);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat__v--text {
+    font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+    line-height: 1.12;
+  }
+  .stat__d {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 30ch;
+  }
+  .quote {
+    margin: 0;
+    max-width: 38ch;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--moss);
+  }
+
+  @media (max-width: 1023px) {
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 599px) {
+    .stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

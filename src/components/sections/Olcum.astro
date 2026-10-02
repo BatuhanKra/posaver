@@ -1,0 +1,143 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const pillars = [
+  {
+    t: 'Atıktan geri kazanım',
+    m: ['kg posa/hafta', '% ayrı toplama'],
+    r: 'Kaçınılan depolama emisyonu',
+  },
+  {
+    t: 'Akıllı toplama ve taşıma',
+    m: ['km/kg posa', 'Sabit rota ↔ dinamik rota'],
+    r: 'Taşıma kaynaklı emisyon',
+  },
+  {
+    t: 'Proses verimliliği',
+    m: ['kWh/kg posa', 'g özüt/kg posa'],
+    r: 'Proses enerji emisyonu',
+  },
+];
+---
+
+<SectionShell id="olcum" tone="dark-espresso" kicker="Ölçüm" title="İklim etkisini nasıl ölçeceğiz?">
+  <ul class="pillars">
+    {
+      pillars.map((p) => (
+        <li class="pillar" data-reveal>
+          <h3>{p.t}</h3>
+          <ul class="pillar__m">
+            {p.m.map((x) => (
+              <li>{x}</li>
+            ))}
+          </ul>
+          <p class="pillar__r"><span aria-hidden="true">→</span> {p.r}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="formula" data-formula>
+    <p class="formula__unit">kg CO<sub>2</sub>e / kg işlenen posa</p>
+    <p class="formula__net" data-f="net">Net iklim faydası</p>
+    <div class="formula__eq">
+      <span class="op" data-f="step" aria-hidden="false">=</span>
+      <span class="term term--plus" data-f="step">Kaçınılan depolama emisyonu</span>
+      <span class="op" data-f="step">−</span>
+      <span class="term term--minus" data-f="step">Taşıma emisyonu</span>
+      <span class="op" data-f="step">−</span>
+      <span class="term term--minus" data-f="step">Proses enerji emisyonu</span>
+    </div>
+    <div class="formula__bar" aria-hidden="true"><span data-draw></span></div>
+  </div>
+</SectionShell>
+
+<style>
+  .pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2.5rem);
+  }
+  .pillar {
+    border-top: 1px solid var(--line);
+    padding-top: 1.2rem;
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+  }
+  .pillar__m {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+    color: var(--muted);
+  }
+  .pillar__r {
+    color: var(--crema);
+    font-weight: 500;
+  }
+  .pillar__r span {
+    color: var(--accent);
+  }
+
+  .formula {
+    display: grid;
+    gap: 1.1rem;
+    padding-top: clamp(1.5rem, 4vh, 3rem);
+  }
+  .formula__unit {
+    font-size: var(--text-small);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .formula__net {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144;
+    font-size: clamp(2.8rem, 8vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--crema);
+    max-width: none;
+  }
+  .formula__eq {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72;
+    font-size: clamp(1.25rem, 2.6vw, 2.25rem);
+    line-height: 1.2;
+  }
+  .op {
+    color: var(--muted);
+  }
+  .term--plus {
+    color: #9cc27a;
+  }
+  .term--minus {
+    color: #d7a37d;
+  }
+  .formula__bar {
+    height: 3px;
+    background: var(--line);
+    max-width: 48rem;
+  }
+  .formula__bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--moss), #9cc27a);
+    transform-origin: left;
+    transform: scaleX(var(--d, 1));
+  }
+
+  @media (max-width: 799px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import SectionShell from '../SectionShell.astro';
+---
+
+<SectionShell id="sorun" tone="light" kicker="Sorun" title="Atığın iklim maliyeti">
+  <ol class="flow">
+    <li class="flow__rail" aria-hidden="true"><span class="flow__fill" data-draw></span></li>
+    <li class="flow__step" data-reveal>
+      <span class="flow__n">1</span>
+      <h3>Kaynağında karışma</h3>
+      <p>Kafelerdeki ıslak posa ayrıştırılmadan genel çöpe atılıyor.</p>
+    </li>
+    <li class="flow__step" data-reveal>
+      <span class="flow__n">2</span>
+      <h3>Oksijensiz çürüme</h3>
+      <p>Islak organik atık, genel atıkla birlikte düzenli depolama sahalarına götürülüyor.</p>
+    </li>
+    <li class="flow__step flow__step--end" data-reveal>
+      <span class="flow__n">3</span>
+      <h3>Metan (CH<sub>4</sub>) salımı</h3>
+      <p>Posalar oksijensiz koşullarda çürürken güçlü bir sera gazı olan metanın salımına yol açıyor.</p>
+    </li>
+  </ol>
+
+  <p class="statement" data-reveal>
+    Sorunumuz sadece bir atık meselesi değil; <em>ıslak kahve posasının düzenli depolamada oluşturduğu önlenebilir metan emisyonudur.</em>
+  </p>
+
+  <p class="source-note">
+    Mussatto et al. (2011), Food and Bioprocess Tech.; IPCC AR5 (2013) WG I; IPCC (2006) GHG Inventory Guidelines Vol. 5
+  </p>
+</SectionShell>
+
+<style>
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+  .flow__rail {
+    position: absolute;
+    top: 1.6rem;
+    left: 1.6rem;
+    right: 1.6rem;
+    height: 2px;
+    background: var(--line);
+    list-style: none;
+  }
+  .flow__fill {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(var(--d, 1));
+  }
+  .flow__step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .flow__n {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    margin-bottom: 0.6rem;
+  }
+  .flow__step--end .flow__n {
+    background: var(--roast);
+    border-color: var(--roast);
+    color: var(--paper);
+  }
+  .flow__step p {
+    color: var(--muted);
+    max-width: 32ch;
+  }
+
+  @media (max-width: 767px) {
+    .flow {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .flow__rail {
+      top: 1.6rem;
+      bottom: 1.6rem;
+      left: 1.6rem;
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+    .flow__fill {
+      width: 100%;
+      transform-origin: top;
+      transform: scaleY(var(--d, 1));
+      height: 100%;
+    }
+    .flow__step {
+      padding-left: 4.6rem;
+    }
+    .flow__n {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+</style>

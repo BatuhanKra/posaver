@@ -1,0 +1,131 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const phases = [
+  { w: 'Hafta 1–2', t: 'Ölçüm', d: 'En az 3 kafede 14 günlük posa ölçümü, ortalama + sapma analizi' },
+  { w: 'Hafta 3–4', t: 'İzlenebilir toplama', d: 'QR/parti kayıtları, toplama zamanı, adres, nem takibi' },
+  { w: 'Hafta 5–7', t: 'Proses & rota denemesi', d: 'Kurutma sıcaklığı, solvent oranı, ekstraksiyon süresi + dinamik rota testi' },
+  { w: 'Hafta 8–9', t: 'Standardize et', d: 'Tekrarlanabilir ekstraksiyon + toplama eşikleri' },
+  { w: 'Hafta 10–11', t: 'Koku değerlendirmesi', d: 'Koku şeritleri, aday formüller' },
+  { w: 'Hafta 12', t: 'Çevresel ve ekonomik karar', d: 'Kütle dengesi, enerji, birim maliyet, rota mesafesi, yan akışlar' },
+];
+---
+
+<SectionShell id="yol-haritasi" tone="dark-forest" kicker="12 hafta" title="12 haftada yerel pilot: önce ölç, sonra büyüt">
+  <ol class="timeline">
+    <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill" data-draw></span></li>
+    {
+      phases.map((p) => (
+        <li class="phase" data-reveal>
+          <span class="phase__dot" aria-hidden="true"></span>
+          <p class="phase__w">{p.w}</p>
+          <h3>{p.t}</h3>
+          <p class="phase__d">{p.d}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <blockquote class="statement quote" data-reveal>
+    “Ölçekleme kararı; yalnızca koku başarısına değil, enerji, rota verimliliği, geri kazanım ve malzeme akışı performansına göre verilecek.”
+  </blockquote>
+</SectionShell>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+  }
+  .timeline__rail {
+    position: absolute;
+    top: 0.45rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--line);
+    list-style: none;
+  }
+  .timeline__fill {
+    display: block;
+    height: 100%;
+    background: var(--moss);
+    transform-origin: left;
+    transform: scaleX(var(--d, 1));
+  }
+  .phase {
+    position: relative;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .phase__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: var(--forest);
+    border: 2px solid var(--moss);
+  }
+  .phase:last-child .phase__dot {
+    background: var(--moss);
+  }
+  .phase__w {
+    font-size: var(--text-small);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .phase h3 {
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  }
+  .phase__d {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .quote {
+    margin: 0;
+    max-width: 40ch;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--moss);
+  }
+
+  @media (max-width: 1099px) {
+    .timeline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 2.5rem;
+    }
+    .timeline__rail {
+      display: none;
+    }
+    .phase {
+      border-top: 2px solid var(--line);
+      padding-top: 1.6rem;
+    }
+    .phase__dot {
+      top: -0.5rem;
+    }
+  }
+  @media (max-width: 639px) {
+    .timeline {
+      grid-template-columns: 1fr;
+      padding-left: 1.6rem;
+      border-left: 2px solid var(--line);
+    }
+    .phase {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .phase__dot {
+      top: 0.3rem;
+      left: -2.5rem;
+    }
+  }
+</style>

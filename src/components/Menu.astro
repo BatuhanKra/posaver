@@ -1,0 +1,191 @@
+---
+import { url } from '../lib/url';
+import { sections } from '../data/sections';
+
+const items = sections.map((s, i) => ({
+  href: url(`/#${s.id}`),
+  label: s.menu,
+  n: String(i + 1).padStart(2, '0'),
+}));
+---
+
+<button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç">
+  <span class="menu-btn__bar"></span>
+  <span class="menu-btn__bar"></span>
+</button>
+
+<nav class="menu" id="menu" aria-label="Ana menü" inert>
+  <div class="menu__inner">
+    <ul class="menu__list">
+      {
+        items.map((it) => (
+          <li class="menu__item">
+            <a class="menu__link" href={it.href}>
+              <span class="menu__num">{it.n}</span>
+              <span class="menu__label">{it.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="menu__foot menu__item">
+      <a href={url('/blog')}>Tüm blog yazıları</a>
+      <span>EU Climate Ideathon 2026</span>
+    </p>
+  </div>
+</nav>
+
+<style is:global>
+  .menu-btn {
+    position: fixed;
+    top: clamp(0.75rem, 2vw, 1.75rem);
+    right: var(--gutter);
+    z-index: 70;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: var(--crema);
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.28);
+    display: grid;
+    place-items: center;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .menu-btn:hover {
+    transform: scale(1.06);
+  }
+  .menu-btn__bar {
+    grid-area: 1 / 1;
+    width: 1.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--espresso);
+    transition: transform 0.5s var(--ease-out);
+  }
+  .menu-btn__bar:nth-child(1) {
+    transform: translateY(-4px);
+  }
+  .menu-btn__bar:nth-child(2) {
+    transform: translateY(4px);
+  }
+  .menu-btn[aria-expanded='true'] .menu-btn__bar:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  .menu-btn[aria-expanded='true'] .menu-btn__bar:nth-child(2) {
+    transform: rotate(-45deg);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--espresso);
+    color: var(--crema);
+    clip-path: circle(0px at calc(100% - 3rem) 3rem);
+    visibility: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .menu.is-open {
+    visibility: visible;
+  }
+  .menu__inner {
+    min-height: 100%;
+    padding: clamp(6rem, 14vh, 9rem) var(--gutter) 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(6, auto);
+    grid-auto-flow: column;
+    column-gap: clamp(2rem, 6vw, 6rem);
+  }
+  .menu__link {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96;
+    font-size: clamp(1.75rem, 3.6vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    transition:
+      opacity 0.35s var(--ease-out),
+      transform 0.45s var(--ease-out);
+  }
+  .menu__num {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--moss);
+    min-width: 1.6rem;
+  }
+  .menu__label {
+    position: relative;
+  }
+  .menu__label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.05em;
+    height: 2px;
+    background: var(--moss);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .menu__list:hover .menu__link:not(:hover):not(:focus-visible) {
+    opacity: 0.38;
+  }
+  .menu__link:hover,
+  .menu__link:focus-visible {
+    transform: translateX(0.6rem);
+  }
+  .menu__link:hover .menu__label::after,
+  .menu__link:focus-visible .menu__label::after {
+    transform: scaleX(1);
+  }
+  .menu__foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    justify-content: space-between;
+    font-size: var(--text-small);
+    color: rgb(233 220 201 / 0.64);
+    max-width: none;
+    border-top: 1px solid rgb(233 220 201 / 0.16);
+    padding-top: 1.25rem;
+  }
+  .menu__foot a {
+    text-underline-offset: 0.25em;
+  }
+
+  @media (max-width: 767px) {
+    .menu__list {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
+    }
+    .menu__link {
+      font-size: clamp(1.6rem, 7.5vw, 2.25rem);
+      padding: 0.25rem 0;
+    }
+    .menu-btn {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+</style>

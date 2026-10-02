@@ -1,0 +1,66 @@
+---
+import { url } from '../../lib/url';
+import Layout from '../../layouts/Layout.astro';
+import { getPosts, formatDate, readingMinutes } from '../../lib/blog';
+
+const posts = await getPosts();
+---
+
+<Layout title="Blog — POSAVER" description="POSAVER günlüğü: kahve posası, metan emisyonu, pilot çalışma ve iklim etkisi ölçümü üzerine notlar.">
+  <div class="page" data-tone="light">
+    <header class="page__head">
+      <p class="section__kicker">Blog</p>
+      <h1>Günlük notlar</h1>
+      <p class="section__lead">Pilot çalışmamızı, ölçümlerimizi ve öğrendiklerimizi buradan paylaşıyoruz.</p>
+    </header>
+
+    <ul class="list">
+      {
+        posts.map((p) => (
+          <li class="list__item">
+            <a href={url(`/blog/${p.id}`)}>
+              <div class="list__meta">
+                <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
+                <span>{readingMinutes(p.body)} dk okuma</span>
+              </div>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
+
+<style is:global>
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 62rem;
+  }
+  .list__item {
+    border-top: 1px solid var(--line);
+  }
+  .list__item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .list__item a {
+    display: grid;
+    gap: 0.6rem;
+    padding: 2rem 0;
+    text-decoration: none;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .list__item a:hover {
+    transform: translateX(0.5rem);
+  }
+  .list__item h2 {
+    font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+    max-width: 24ch;
+  }
+  .list__item p {
+    color: var(--muted);
+  }
+</style>
