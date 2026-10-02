@@ -29,11 +29,37 @@ export async function initReveal() {
     });
   });
 
+  const vw = window.innerWidth;
+  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    let x = 0;
+    let rotation = 0;
+    if (vw >= 768 && r.width < vw * 0.5) {
+      if (cx < vw * 0.4) {
+        x = -120;
+        rotation = -2.5;
+      } else if (cx > vw * 0.6) {
+        x = 120;
+        rotation = 2.5;
+      }
+    }
+    gsap.set(el, { x, y: 56, rotation, scale: 0.95 });
+  });
+
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 90%',
     once: true,
     onEnter: (els) =>
-      gsap.to(els, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.1, overwrite: true }),
+      gsap.to(els, { opacity: 1, x: 0, y: 0, rotation: 0, scale: 1, duration: 1.2, ease: 'power3.out', stagger: 0.11, overwrite: true }),
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-wave]').forEach((wave) => {
+    const section = wave.parentElement as HTMLElement;
+    const trigger = { trigger: section, start: 'top bottom', end: 'top 15%', scrub: true };
+    gsap.fromTo(wave.querySelector('.wave__layer--1'), { xPercent: 0 }, { xPercent: -50, ease: 'none', scrollTrigger: trigger });
+    gsap.fromTo(wave.querySelector('.wave__layer--2'), { xPercent: -50 }, { xPercent: 0, ease: 'none', scrollTrigger: trigger });
+    gsap.fromTo(wave.querySelector('.wave__layer--3'), { xPercent: -12 }, { xPercent: -62, ease: 'none', scrollTrigger: trigger });
   });
 
   document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {

@@ -5,11 +5,11 @@ import SectionShell from '../SectionShell.astro';
 <SectionShell id="neden-onemli" tone="dark-forest" kicker="Neden önemli?" title="Bir kupa kahvenin görünmeyen iklim bedeli">
   <ul class="stats">
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="86">86</span> kat</p>
+      <p class="stat__v"><span data-count="86">86</span><span class="stat__u">kat</span></p>
       <p class="stat__d">Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi.</p>
     </li>
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="18">18</span> milyon ton</p>
+      <p class="stat__v"><span data-count="18">18</span><span class="stat__u">milyon ton</span></p>
       <p class="stat__d">Dünyada yılda yaklaşık oluşan ıslak kahve posası.</p>
     </li>
     <li class="stat" data-reveal>
@@ -17,7 +17,7 @@ import SectionShell from '../SectionShell.astro';
       <p class="stat__d">Biyo-atığın kaynağında ayrıştırılmasını veya ayrı toplanmasını öngörüyor.</p>
     </li>
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="24">24</span>–<span data-count="48">48</span> saat</p>
+      <p class="stat__v"><span class="stat__nw"><span data-count="24">24</span>–<span data-count="48">48</span></span><span class="stat__u">saat</span></p>
       <p class="stat__d">Posa bu sürede küflendiği için yerel çözüm gerekiyor.</p>
     </li>
   </ul>
@@ -39,20 +39,33 @@ import SectionShell from '../SectionShell.astro';
     gap: clamp(1.25rem, 3vw, 3rem);
   }
   .stat {
-    border-top: 1px solid var(--line);
-    padding-top: 1.4rem;
+    padding-top: 0.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 0.9rem;
   }
   .stat__v {
     font-family: var(--font-display);
-    font-variation-settings: 'opsz' 144;
-    font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+    font-weight: 600;
+    font-size: clamp(2.8rem, 5.2vw, 5rem);
     line-height: 1.02;
-    letter-spacing: -0.02em;
-    color: var(--crema);
+    letter-spacing: -0.035em;
+    background: linear-gradient(180deg, #ffffff 20%, #b9c9a3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-variant-numeric: tabular-nums;
+  }
+  .stat__u {
+    display: block;
+    font-size: 0.4em;
+    letter-spacing: -0.02em;
+    margin-top: 0.25em;
+  }
+  .stat__nw {
+    white-space: nowrap;
   }
   .stat__v--text {
     font-size: clamp(1.6rem, 2.4vw, 2.3rem);
@@ -64,10 +77,8 @@ import SectionShell from '../SectionShell.astro';
     max-width: 30ch;
   }
   .quote {
-    margin: 0;
-    max-width: 38ch;
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--moss);
+    margin-block: 0;
+    max-width: 30ch;
   }
 
   @media (max-width: 1023px) {

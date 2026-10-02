@@ -47,8 +47,10 @@ const items = sections.map((s, i) => ({
     border: 0;
     padding: 0;
     cursor: pointer;
-    background: var(--crema);
-    box-shadow: 0 4px 24px rgb(0 0 0 / 0.28);
+    background: rgb(245 245 247 / 0.78);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 0 2px 20px rgb(0 0 0 / 0.18);
     display: grid;
     place-items: center;
     transition: transform 0.4s var(--ease-out);
@@ -117,10 +119,10 @@ const items = sections.map((s, i) => ({
     padding: 0.35rem 0;
     text-decoration: none;
     font-family: var(--font-display);
-    font-variation-settings: 'opsz' 96;
+    font-weight: 600;
     font-size: clamp(1.75rem, 3.6vw, 3.25rem);
     line-height: 1.15;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.035em;
     transition:
       opacity 0.35s var(--ease-out),
       transform 0.45s var(--ease-out);

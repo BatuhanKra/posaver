@@ -1,5 +1,5 @@
 ---
-import type { Tone } from '../data/sections';
+import { sections, type Tone } from '../data/sections';
 
 interface Props {
   id: string;
@@ -11,9 +11,45 @@ interface Props {
 
 const { id, tone, kicker, title, heading = 'h2' } = Astro.props;
 const Heading = heading;
+
+const index = Math.max(0, sections.findIndex((s) => s.id === id));
+const hasWave = id !== 'hero';
+
+const WIDTH = 2880;
+const HEIGHT = 200;
+
+function wavePath(base: number, harmonics: [number, number, number][]) {
+  const steps = 240;
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const x = (WIDTH * i) / steps;
+    let y = base;
+    for (const [cycles, amp, phase] of harmonics) y -= amp * Math.sin((x / (WIDTH / 2)) * cycles * Math.PI * 2 + phase);
+    d += `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)} `;
+  }
+  return `${d}L${WIDTH},${HEIGHT} L0,${HEIGHT} Z`;
+}
+
+const s = index * 1.7;
+const layers = [
+  wavePath(120, [[1, 34, s], [3, 10, s * 2]]),
+  wavePath(138, [[2, 26, s + 1.4], [5, 7, s]]),
+  wavePath(150, [[1, 22, s + 3], [4, 8, s * 3]]),
+];
 ---
 
 <section class="section" id={id} data-tone={tone} data-section={id} aria-labelledby={`${id}-title`}>
+  {
+    hasWave && (
+      <div class="wave" aria-hidden="true" data-wave>
+        {layers.map((d, i) => (
+          <svg class={`wave__layer wave__layer--${i + 1}`} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} preserveAspectRatio="none">
+            <path d={d} />
+          </svg>
+        ))}
+      </div>
+    )
+  }
   {kicker && <p class="section__kicker">{kicker}</p>}
   <Heading id={`${id}-title`} data-split>{title}</Heading>
   <slot />

@@ -85,6 +85,8 @@ const pillars = [
   }
 
   .formula {
+    text-align: center;
+    justify-items: center;
     display: grid;
     gap: 1.1rem;
     padding-top: clamp(1.5rem, 4vh, 3rem);
@@ -96,20 +98,21 @@ const pillars = [
   }
   .formula__net {
     font-family: var(--font-display);
-    font-variation-settings: 'opsz' 144;
+    font-weight: 600;
     font-size: clamp(2.8rem, 8vw, 8rem);
     line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--crema);
+    letter-spacing: -0.035em;
+    color: #fff;
     max-width: none;
   }
   .formula__eq {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: baseline;
     gap: 0.4rem 1rem;
     font-family: var(--font-display);
-    font-variation-settings: 'opsz' 72;
+    font-weight: 600;
     font-size: clamp(1.25rem, 2.6vw, 2.25rem);
     line-height: 1.2;
   }
@@ -125,7 +128,7 @@ const pillars = [
   .formula__bar {
     height: 3px;
     background: var(--line);
-    max-width: 48rem;
+    width: min(100%, 48rem);
   }
   .formula__bar span {
     display: block;

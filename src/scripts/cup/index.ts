@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { buildCup, LEVEL_MAX, LEVEL_MIN } from './geometry';
 import { createSteam } from './steam';
+import { createOrbit } from './orbit';
 import { reduceMotion } from '../smooth';
 
 const FOV = 28;
@@ -47,6 +48,9 @@ export function initCup() {
   const key = new THREE.DirectionalLight(0xfff1dc, 1.5);
   key.position.set(-3, 5, 4);
   scene.add(key);
+  const rim = new THREE.DirectionalLight(0xe9dcc9, 1.6);
+  rim.position.set(3.5, 2.5, -3.5);
+  scene.add(rim);
 
   const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 50);
   camera.position.set(0, PIVOT_Y + Math.sin(ELEVATION) * DIST, Math.cos(ELEVATION) * DIST);
@@ -56,6 +60,9 @@ export function initCup() {
   const steam = createSteam();
   cup.steamAnchor.add(steam.points);
   scene.add(cup.group);
+  const orbit = createOrbit();
+  scene.add(orbit.group);
+  const motion = { prevP: 0, vel: 0, lean: 0 };
 
   // Hedef (scroll) ve görüntülenen (lerp) durum
   const target = { p: 0, h: 0 };
@@ -69,7 +76,7 @@ export function initCup() {
     const ppu = H / (2 * DIST * Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
     const hero = mobile
       ? { w: 0.62 * W, dx: 0, dy: 0.24 * H }
-      : { w: Math.min(0.4 * W, 0.85 * H), dx: 0.2 * W, dy: 0.08 * H };
+      : { w: Math.min(0.32 * W, 0.46 * H), dx: 0, dy: 0.345 * H };
     const small = mobile
       ? { w: 0.34 * W, dx: 0, dy: 0.3 * H }
       : { w: Math.min(0.2 * W, 0.3 * H), dx: 0, dy: 0 };
@@ -118,8 +125,14 @@ export function initCup() {
   function apply(time: number) {
     const l = layout(cur.h);
     cup.group.scale.setScalar(l.s);
-    cup.group.position.y = PIVOT_Y * (1 - l.s);
+    const bob = reduceMotion ? 0 : Math.sin(time * 0.9) * 0.03;
+    cup.group.position.y = PIVOT_Y * (1 - l.s) + bob * l.s;
     cup.group.rotation.y = ROT_START + cur.p * TURNS * Math.PI * 2;
+    cup.group.rotation.z = motion.lean;
+    cup.group.rotation.x = -motion.lean * 0.35 + (reduceMotion ? 0 : Math.sin(time * 0.7) * 0.012);
+    orbit.group.scale.copy(cup.group.scale);
+    orbit.group.position.copy(cup.group.position);
+    orbit.update(time, -cur.p * 7 * Math.PI * 2, smooth(0.52, 0.78, cur.p), W < 768 ? 0.78 : 1);
     camera.setViewOffset(W, H, -l.dx, -l.dy, W, H);
 
     const level = THREE.MathUtils.lerp(LEVEL_MAX, LEVEL_MIN, smooth(0, 1, cur.p));
@@ -130,6 +143,8 @@ export function initCup() {
       (renderer.getPixelRatio() * H) / (2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2))) * l.s;
     steam.uniforms.uOpacity.value = 0.34 * (1 - 0.5 * smooth(0.75, 1, cur.p));
     steam.uniforms.uColor.value.lerp(steamTarget, 0.04);
+    steam.uniforms.uSway.value = motion.lean * 6;
+    rim.color.copy(steam.uniforms.uColor.value);
     return l;
   }
 
@@ -167,7 +182,7 @@ export function initCup() {
       onToggle: (self) => {
         if (!self.isActive) return;
         if (GREEN_SECTIONS.has(el.dataset.section ?? '')) steamTarget.copy(STEAM_GREEN);
-        else if (el.dataset.tone === 'light') steamTarget.copy(STEAM_DARKTONE);
+        else if (el.dataset.tone?.startsWith('light')) steamTarget.copy(STEAM_DARKTONE);
         else steamTarget.copy(STEAM_CREMA);
       },
     });
@@ -187,6 +202,12 @@ export function initCup() {
     const k = 1 - Math.exp(-dt * 7);
     cur.p += (target.p - cur.p) * k;
     cur.h += (target.h - cur.h) * k;
+
+    const v = (target.p - motion.prevP) / Math.max(dt, 0.001);
+    motion.prevP = target.p;
+    motion.vel += (v - motion.vel) * 0.15;
+    const wantLean = THREE.MathUtils.clamp(motion.vel * 5, -0.14, 0.14);
+    motion.lean += (wantLean - motion.lean) * (1 - Math.exp(-dt * 5));
 
     const l = apply(t);
     if (frame % 6 === 0) {
