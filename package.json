@@ -6,7 +6,10 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "copy:cms": "node scripts/copy-cms.mjs",
+    "predev": "npm run copy:cms",
     "dev": "astro dev",
+    "prebuild": "npm run copy:cms",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -22,6 +25,7 @@
     "esbuild": true
   },
   "devDependencies": {
+    "@sveltia/cms": "^0.227.4",
     "@types/three": "^0.186.0"
   }
 }

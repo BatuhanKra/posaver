@@ -11,6 +11,10 @@ npm run dev      # http://localhost:4321
 npm run build    # dist/ klasörüne statik site üretir
 ```
 
+## Yönetici paneli
+
+`/admin/` adresindeki panelden (Sveltia CMS) blog yazıları yönetilir. Kurulum ve kullanım: [YONETICI-REHBERI.md](YONETICI-REHBERI.md)
+
 ## Blog yazısı eklemek
 
 `src/content/blog/` altına bir `.md` dosyası ekleyin:

@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# CMS paneli (npm run copy:cms ile node_modules'dan kopyalanır)
+public/admin/sveltia-cms.js
+public/admin/chunks/

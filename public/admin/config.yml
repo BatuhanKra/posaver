@@ -1,0 +1,45 @@
+backend:
+  name: github
+  repo: BatuhanKra/posaver
+  branch: main
+  commit_messages:
+    create: 'Blog: "{{slug}}" yazısı eklendi'
+    update: 'Blog: "{{slug}}" yazısı güncellendi'
+    delete: 'Blog: "{{slug}}" yazısı silindi'
+    uploadMedia: 'Görsel yüklendi: "{{path}}"'
+    deleteMedia: 'Görsel silindi: "{{path}}"'
+
+locale: tr
+site_url: https://batuhankra.github.io/posaver/
+display_url: https://batuhankra.github.io/posaver/
+logo_url: https://batuhankra.github.io/posaver/favicon.svg
+
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+
+collections:
+  - name: blog
+    label: Blog yazıları
+    label_singular: Blog yazısı
+    folder: src/content/blog
+    media_folder: ../../assets/uploads
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}} — {{date}}'
+    sortable_fields: ['date', 'title']
+    view_filters:
+      - label: Yayında
+        field: draft
+        pattern: false
+      - label: Taslaklar
+        field: draft
+        pattern: true
+    fields:
+      - { label: Başlık, name: title, widget: string }
+      - { label: Kısa özet, name: description, widget: text, hint: 'Blog listesinde ve paylaşım önizlemesinde görünür (1-2 cümle).' }
+      - { label: Tarih, name: date, widget: datetime, format: 'YYYY-MM-DD', date_format: 'YYYY-MM-DD', time_format: false }
+      - { label: Etiketler, name: tags, widget: list, required: false, hint: 'Örn: pilot, ölçüm' }
+      - { label: Taslak, name: draft, widget: boolean, default: false, hint: 'Açıksa yazı sitede görünmez.' }
+      - { label: İçerik, name: body, widget: markdown }
