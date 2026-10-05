@@ -19,9 +19,9 @@ Her kişiyi **tek tek** ekleyin:
 
 | Kişi | GitHub kullanıcı adı | Davet gönderildi | Kabul etti | Token oluşturdu |
 |------|----------------------|:----------------:|:----------:|:---------------:|
-| Fatma |                     | ☐ | ☐ | ☐ |
-| Orhan |                     | ☐ | ☐ | ☐ |
-| Ali   |                     | ☐ | ☐ | ☐ |
+| Fatma | fatmanurdogannn     | ☐ | ☐ | ☐ |
+| Orhan | OrhanBilgin0        | ☐ | ☐ | ☐ |
+| Ali   | (henüz hesap açmadı) | ☐ | ☐ | ☐ |
 
 Biri ekipten ayrılırsa aynı sayfadan yetkisini kaldırın; panele girişi hemen biter.
 
