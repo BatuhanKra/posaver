@@ -39,4 +39,4 @@ Adres: https://posaver.com (özel alan adı; DNS Cloudflare'de, kayıt Natro'da)
 
 ## Düzenlenecekler
 
-- İletişim e-postası: `src/data/site.ts`
+- İletişim e-postası: `src/data/site.ts` (şu an posaver.info@gmail.com)
