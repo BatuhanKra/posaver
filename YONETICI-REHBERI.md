@@ -21,7 +21,7 @@ Her kişiyi **tek tek** ekleyin:
 |------|----------------------|:----------------:|:----------:|:---------------:|
 | Fatma | fatmanurdogannn     | ☐ | ☐ | ☐ |
 | Orhan | OrhanBilgin0        | ☐ | ☐ | ☐ |
-| Ali   | (henüz hesap açmadı) | ☐ | ☐ | ☐ |
+| Ali   | acmak18-lang        | ☐ | ☐ | ☐ |
 
 Biri ekipten ayrılırsa aynı sayfadan yetkisini kaldırın; panele girişi hemen biter.
 
