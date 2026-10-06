@@ -33,7 +33,7 @@ Yazı metni...
 
 `main` dalına her push, GitHub Actions ile GitHub Pages'e yayınlanır (`.github/workflows/deploy.yml`).
 Repo ayarlarında **Settings → Pages → Source: GitHub Actions** seçili olmalıdır.
-Adres: `https://<kullanıcı>.github.io/<repo-adı>/`. Özel alan adı bağlanınca `BASE_PATH` gerekmez.
+Adres: https://posaver.com (özel alan adı; DNS Cloudflare'de, kayıt Natro'da). Alt dizinde yayın gerekirse build sırasında `BASE_PATH` ve `SITE_URL` ortam değişkenlerini verin.
 
 `vercel.json` Vercel'e yayın için hazırdır (zorunlu değil).
 

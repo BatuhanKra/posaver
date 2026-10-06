@@ -10,9 +10,9 @@ backend:
     deleteMedia: 'Görsel silindi: "{{path}}"'
 
 locale: tr
-site_url: https://batuhankra.github.io/posaver/
-display_url: https://batuhankra.github.io/posaver/
-logo_url: https://batuhankra.github.io/posaver/favicon.svg
+site_url: https://posaver.com/
+display_url: https://posaver.com/
+logo_url: https://posaver.com/favicon.svg
 
 media_folder: src/assets/uploads
 public_folder: /src/assets/uploads

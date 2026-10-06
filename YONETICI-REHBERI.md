@@ -1,6 +1,6 @@
 # POSAVER Yönetici Paneli Rehberi
 
-Panel adresi: **https://batuhankra.github.io/posaver/admin/**
+Panel adresi: **https://posaver.com/admin/**
 
 Panelden blog yazıları eklenir, düzenlenir, taslağa alınır ve silinir. Yayınla'ya basılan değişiklik repoya
 kişinin kendi GitHub adıyla kaydolur ve site 1–2 dakika içinde kendiliğinden güncellenir.
@@ -36,7 +36,7 @@ Daveti kabul ettikten sonra:
 2. **Generate new token (classic)**. Ad: `POSAVER panel`, süre: 90 gün.
 3. Yalnızca **`public_repo`** kutusunu işaretleyin. **Generate token** deyin ve çıkan kodu kopyalayın
    (bir daha gösterilmez).
-4. https://batuhankra.github.io/posaver/admin/ adresini açın → **Erişim Token'ı Kullanarak Giriş Yap** →
+4. https://posaver.com/admin/ adresini açın → **Erişim Token'ı Kullanarak Giriş Yap** →
    kodu yapıştırın.
 
 > "GitHub ile Giriş Yap" düğmesi bu kurulumda çalışmaz, token ile girin.
