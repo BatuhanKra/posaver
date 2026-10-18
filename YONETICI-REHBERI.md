@@ -31,18 +31,19 @@ Biri ekipten ayrılırsa aynı sayfadan yetkisini kaldırın; panele girişi hem
 ## B. Her kişi için — ilk giriş (kendi hesabınızla, bir kez)
 
 GitHub hesabı yoksa önce https://github.com/signup adresinden kendiniz açın.
-Daveti kabul ettikten sonra:
 
-1. GitHub'da sağ üstte profil resmi → **Settings → Developer settings → Personal access tokens → Tokens (classic)**
-2. **Generate new token (classic)**. Ad: `POSAVER panel`, süre: 90 gün.
-3. Yalnızca **`public_repo`** kutusunu işaretleyin. **Generate token** deyin ve çıkan kodu kopyalayın
-   (bir daha gösterilmez).
-4. https://posaver.com/admin/ adresini açın → **Erişim Token'ı Kullanarak Giriş Yap** →
-   kodu yapıştırın.
+1. GitHub'dan gelen **daveti kabul edin** (e-posta ya da https://github.com/BatuhanKra/posaver/invitations).
+2. https://posaver.com/admin/ adresini açın → **GitHub ile Giriş Yap** → GitHub'da giriş yapıp **Authorize** deyin.
 
-> "GitHub ile Giriş Yap" düğmesi bu kurulumda çalışmaz, token ile girin.
-> Token sizin şifreniz gibidir: kimseyle paylaşmayın, mesaj/e-posta ile göndermeyin. Süresi dolunca 2. ve 3. adımları
-> tekrarlayın. Şüphelenirseniz GitHub'da tokenı silin (**Delete**), giriş anında kapanır.
+Panel arka planda `auth.posaver.com` (Cloudflare Worker, kodu `workers/auth/` klasöründe) üzerinden giriş yapar.
+
+**Giriş çalışmazsa (yedek yöntem): token ile giriş**
+1. https://posaver.com/yonetici/ sayfasındaki **token ile girin** bölümünü açıp GitHub token sayfasını açın
+   (ayarlar hazır dolu gelir), süreyi 90 gün seçip **Generate token** deyin, kodu kopyalayın.
+2. Panelde **Erişim Token'ı Kullanarak Giriş Yap** → kodu yapıştırın.
+
+> Token sizin şifreniz gibidir: kimseyle paylaşmayın, mesaj/e-posta ile göndermeyin.
+> Şüphelenirseniz GitHub'da tokenı silin (**Delete**), giriş anında kapanır.
 
 ---
 

@@ -2,6 +2,7 @@ backend:
   name: github
   repo: BatuhanKra/posaver
   branch: main
+  base_url: https://auth.posaver.com
   commit_messages:
     create: 'Blog: "{{slug}}" yazısı eklendi'
     update: 'Blog: "{{slug}}" yazısı güncellendi'

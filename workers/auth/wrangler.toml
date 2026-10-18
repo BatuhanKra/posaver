@@ -1,0 +1,9 @@
+name = "posaver-auth"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+routes = [{ pattern = "auth.posaver.com", custom_domain = true }]
+
+[vars]
+ALLOWED_ORIGINS = "https://posaver.com"
+GITHUB_CLIENT_ID = "Ov23li1GvU9FwHMxa2jE"

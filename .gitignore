@@ -26,3 +26,7 @@ pnpm-debug.log*
 # CMS paneli (npm run copy:cms ile node_modules'dan kopyalanır)
 public/admin/sveltia-cms.js
 public/admin/chunks/
+
+# wrangler
+workers/auth/.wrangler/
+workers/auth/node_modules/

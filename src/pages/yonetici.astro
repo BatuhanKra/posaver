@@ -20,46 +20,42 @@ const invitesUrl = 'https://github.com/BatuhanKra/posaver/invitations';
 
     <section class="guide" aria-labelledby="ilk-giris">
       <h2 id="ilk-giris">İlk kez mi giriyorsunuz?</h2>
-      <p class="guide__note">Giriş için GitHub hesabınızda size özel bir <strong>erişim kodu (token)</strong> gerekir. Aşağıdaki üç adımı bir kez yapmanız yeter.</p>
+      <p class="guide__note">Kendi GitHub hesabınızla girersiniz, ayrı bir şifre ya da kod gerekmez.</p>
 
       <ol class="steps">
         <li class="step card">
           <span class="step__n">1</span>
           <div>
             <h3>Daveti kabul edin</h3>
-            <p>GitHub'dan e-postanıza gelen "POSAVER" davetini kabul edin.</p>
+            <p>GitHub'dan e-postanıza gelen "POSAVER" davetini kabul edin. Bunu bir kez yapmanız yeter.</p>
             <a class="link-arrow" href={invitesUrl} target="_blank" rel="noopener">Davetlerimi aç</a>
           </div>
         </li>
         <li class="step card">
           <span class="step__n">2</span>
           <div>
-            <h3>Token oluşturun</h3>
-            <p>
-              Düğmeye basınca ayarlar hazır dolu gelir (ad: <em>POSAVER panel</em>, yetki: <em>public_repo</em>).
-              Süreyi <strong>90 days</strong> seçin, en alttaki <strong>Generate token</strong>'a basın ve çıkan
-              <code>ghp_…</code> kodunu kopyalayın. Kod bir daha gösterilmez.
-            </p>
-            <a class="btn btn--dark" href={tokenUrl} target="_blank" rel="noopener">GitHub token sayfasını aç</a>
-          </div>
-        </li>
-        <li class="step card">
-          <span class="step__n">3</span>
-          <div>
             <h3>Panele girin</h3>
             <p>
-              Panelde <strong>Erişim Token'ı Kullanarak Giriş Yap</strong>'ı seçin ve kodu yapıştırın.
-              "GitHub ile Giriş Yap" düğmesi çalışmaz.
+              Panelde <strong>GitHub ile Giriş Yap</strong> düğmesine basın. GitHub'da hesabınızla giriş yapıp
+              <strong>Authorize</strong> deyin, panel açılır.
             </p>
-            <a class="link-arrow" href={url('/admin/')}>Panele git</a>
+            <a class="btn btn--dark" href={url('/admin/')}>Panele git</a>
           </div>
         </li>
       </ol>
 
-      <p class="warn">
-        Token şifreniz gibidir. Kimseyle paylaşmayın, mesaj veya e-postayla göndermeyin. Süresi dolunca (90 gün) bu adımları
-        tekrarlayın.
-      </p>
+      <details class="alt">
+        <summary>GitHub ile giriş çalışmazsa: token ile girin</summary>
+        <p>
+          Düğmeye basınca ayarlar hazır dolu gelir (ad: <em>POSAVER panel</em>, yetki: <em>public_repo</em>). Süreyi
+          <strong>90 days</strong> seçin, en alttaki <strong>Generate token</strong>'a basın ve çıkan <code>ghp_…</code>
+          kodunu kopyalayın. Panelde <strong>Erişim Token'ı Kullanarak Giriş Yap</strong>'ı seçip kodu yapıştırın.
+        </p>
+        <a class="link-arrow" href={tokenUrl} target="_blank" rel="noopener">GitHub token sayfasını aç</a>
+        <p class="warn">
+          Token şifreniz gibidir. Kimseyle paylaşmayın, mesaj veya e-postayla göndermeyin.
+        </p>
+      </details>
     </section>
   </div>
 </Layout>
@@ -111,14 +107,29 @@ const invitesUrl = 'https://github.com/BatuhanKra/posaver/invitations';
   .step p {
     color: var(--muted);
   }
-  .step code {
+  .alt {
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .alt summary {
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .alt > * + * {
+    margin-top: 0.75rem;
+  }
+  .alt p {
+    color: var(--muted);
+  }
+  .alt code {
     background: rgb(0 0 0 / 0.06);
     padding: 0.1em 0.4em;
     border-radius: 0.4em;
     font-size: 0.9em;
   }
   .warn {
-    color: var(--muted);
     font-size: var(--text-small);
     border-left: 2px solid var(--roast);
     padding-left: 1rem;
