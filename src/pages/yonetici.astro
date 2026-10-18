@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib/url';
+
+const tokenUrl = 'https://github.com/settings/tokens/new?scopes=public_repo&description=POSAVER%20panel';
+const invitesUrl = 'https://github.com/BatuhanKra/posaver/invitations';
+---
+
+<Layout title="Yönetici girişi — POSAVER" description="POSAVER ekibi için yönetici paneli giriş yönergesi." noindex>
+  <div class="page" data-tone="light">
+    <header class="page__head">
+      <p class="section__kicker">Yönetici</p>
+      <h1>Yönetici girişi</h1>
+      <p class="section__lead">
+        Blog yazılarını panelden yönetirsiniz. Bu sayfa yalnızca POSAVER ekibi içindir.
+      </p>
+    </header>
+
+    <a class="btn btn--dark enter" href={url('/admin/')}>Panele giriş yap</a>
+
+    <section class="guide" aria-labelledby="ilk-giris">
+      <h2 id="ilk-giris">İlk kez mi giriyorsunuz?</h2>
+      <p class="guide__note">Giriş için GitHub hesabınızda size özel bir <strong>erişim kodu (token)</strong> gerekir. Aşağıdaki üç adımı bir kez yapmanız yeter.</p>
+
+      <ol class="steps">
+        <li class="step card">
+          <span class="step__n">1</span>
+          <div>
+            <h3>Daveti kabul edin</h3>
+            <p>GitHub'dan e-postanıza gelen "POSAVER" davetini kabul edin.</p>
+            <a class="link-arrow" href={invitesUrl} target="_blank" rel="noopener">Davetlerimi aç</a>
+          </div>
+        </li>
+        <li class="step card">
+          <span class="step__n">2</span>
+          <div>
+            <h3>Token oluşturun</h3>
+            <p>
+              Düğmeye basınca ayarlar hazır dolu gelir (ad: <em>POSAVER panel</em>, yetki: <em>public_repo</em>).
+              Süreyi <strong>90 days</strong> seçin, en alttaki <strong>Generate token</strong>'a basın ve çıkan
+              <code>ghp_…</code> kodunu kopyalayın. Kod bir daha gösterilmez.
+            </p>
+            <a class="btn btn--dark" href={tokenUrl} target="_blank" rel="noopener">GitHub token sayfasını aç</a>
+          </div>
+        </li>
+        <li class="step card">
+          <span class="step__n">3</span>
+          <div>
+            <h3>Panele girin</h3>
+            <p>
+              Panelde <strong>Erişim Token'ı Kullanarak Giriş Yap</strong>'ı seçin ve kodu yapıştırın.
+              "GitHub ile Giriş Yap" düğmesi çalışmaz.
+            </p>
+            <a class="link-arrow" href={url('/admin/')}>Panele git</a>
+          </div>
+        </li>
+      </ol>
+
+      <p class="warn">
+        Token şifreniz gibidir. Kimseyle paylaşmayın, mesaj veya e-postayla göndermeyin. Süresi dolunca (90 gün) bu adımları
+        tekrarlayın.
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .enter {
+    justify-self: start;
+    margin-bottom: clamp(2.5rem, 7vh, 4rem);
+  }
+  .guide {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 46rem;
+  }
+  .guide h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+  .guide__note {
+    color: var(--muted);
+  }
+  .steps {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    background: var(--gray-bg);
+  }
+  .step > div {
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+  }
+  .step__n {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 600;
+  }
+  .step p {
+    color: var(--muted);
+  }
+  .step code {
+    background: rgb(0 0 0 / 0.06);
+    padding: 0.1em 0.4em;
+    border-radius: 0.4em;
+    font-size: 0.9em;
+  }
+  .warn {
+    color: var(--muted);
+    font-size: var(--text-small);
+    border-left: 2px solid var(--roast);
+    padding-left: 1rem;
+  }
+</style>

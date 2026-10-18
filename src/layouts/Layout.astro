@@ -9,12 +9,14 @@ interface Props {
   title?: string;
   description?: string;
   showCup?: boolean;
+  noindex?: boolean;
 }
 
 const {
   title = 'POSAVER — Kahvenin kokusu çöpe gitmesin',
   description = 'Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir bir koku girdisine dönüştürüyoruz.',
   showCup = false,
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -27,6 +29,7 @@ const ogImage = new URL(url('/og.png'), Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#2a1a12" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="tr_TR" />

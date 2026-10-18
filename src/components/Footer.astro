@@ -1,10 +1,15 @@
 ---
 import { site } from '../data/site';
+import { url } from '../lib/url';
 ---
 
 <footer class="footer">
   <p><strong>{site.name}</strong> · {site.tagline}</p>
-  <p>EU Climate Ideathon 2026 projesi</p>
+  <p>
+    EU Climate Ideathon 2026 projesi
+    <span aria-hidden="true">·</span>
+    <a href={url('/yonetici/')}>Yönetici girişi</a>
+  </p>
 </footer>
 
 <style>
@@ -25,5 +30,9 @@ import { site } from '../data/site';
   .footer strong {
     color: var(--crema);
     font-weight: 600;
+  }
+  .footer a {
+    color: var(--crema);
+    text-underline-offset: 0.25em;
   }
 </style>

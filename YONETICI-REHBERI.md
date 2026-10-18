@@ -1,6 +1,7 @@
 # POSAVER Yönetici Paneli Rehberi
 
 Panel adresi: **https://posaver.com/admin/**
+Giriş yönergesi (token bağlantısıyla): **https://posaver.com/yonetici/**, sitenin en altındaki "Yönetici girişi" bağlantısından da açılır.
 
 Panelden blog yazıları eklenir, düzenlenir, taslağa alınır ve silinir. Yayınla'ya basılan değişiklik repoya
 kişinin kendi GitHub adıyla kaydolur ve site 1–2 dakika içinde kendiliğinden güncellenir.
