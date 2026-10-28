@@ -1,10 +1,22 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
-const values = ['Döngüsel', 'Yerel, izlenebilir ve veri odaklı', 'Koku odaklı ileri dönüşüm', 'Ölçülebilir iklim faydası'];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
+const values = [
+  t('Döngüsel', 'Circular'),
+  t('Yerel, izlenebilir ve veri odaklı', 'Local, traceable and data-driven'),
+  t('Koku odaklı ileri dönüşüm', 'Scent-focused upcycling'),
+  t('Ölçülebilir iklim faydası', 'Measurable climate benefit'),
+];
 ---
 
-<SectionShell id="neden-posaver" tone="dark-forest" kicker="Özet" title="Neden POSAVER?">
+<SectionShell id="neden-posaver" tone="dark-forest" kicker={t('Özet', 'In short')} title={t('Neden POSAVER?', 'Why POSAVER?')}>
   <ul class="values">
     {
       values.map((v, i) => (
@@ -17,7 +29,12 @@ const values = ['Döngüsel', 'Yerel, izlenebilir ve veri odaklı', 'Koku odakl�
   </ul>
 
   <p class="statement closing" data-reveal>
-    POSAVER, dağınık ve hızla bozulan kahve posasını kaynağa yakın ve izlenebilir biçimde toplayıp aromatik değerini geri kazanan; iklim etkisini veriyle ölçerek yüksek katma değerli B2B koku girdisine dönüştürmeyi hedefleyen bütünleşik bir modeldir.
+    {
+      t(
+        'POSAVER, dağınık ve hızla bozulan kahve posasını kaynağa yakın ve izlenebilir biçimde toplayıp aromatik değerini geri kazanan; iklim etkisini veriyle ölçerek yüksek katma değerli B2B koku girdisine dönüştürmeyi hedefleyen bütünleşik bir modeldir.',
+        'POSAVER is an integrated model that collects scattered, fast-spoiling coffee grounds close to the source and in a traceable way, recovers their aromatic value, and aims to turn them into a high-value B2B fragrance ingredient while measuring climate impact with data.',
+      )
+    }
   </p>
 </SectionShell>
 

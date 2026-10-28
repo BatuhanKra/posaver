@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import type { Lang } from '../lib/i18n';
+import Hero from './sections/Hero.astro';
+import Sorun from './sections/Sorun.astro';
+import NedenOnemli from './sections/NedenOnemli.astro';
+import DegerZinciri from './sections/DegerZinciri.astro';
+import Cozum from './sections/Cozum.astro';
+import Ilerleme from './sections/Ilerleme.astro';
+import UrunHaritasi from './sections/UrunHaritasi.astro';
+import KafeOrtakligi from './sections/KafeOrtakligi.astro';
+import Pilot from './sections/Pilot.astro';
+import YolHaritasi from './sections/YolHaritasi.astro';
+import Buyume from './sections/Buyume.astro';
+import Olcum from './sections/Olcum.astro';
+import NedenPosaver from './sections/NedenPosaver.astro';
+import BlogOzet from './sections/BlogOzet.astro';
+import Iletisim from './sections/Iletisim.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Layout showCup lang={lang} alternates={{ tr: '/', en: '/en/' }}>
+  <Hero lang={lang} />
+  <Sorun lang={lang} />
+  <NedenOnemli lang={lang} />
+  <DegerZinciri lang={lang} />
+  <Cozum lang={lang} />
+  <Ilerleme lang={lang} />
+  <UrunHaritasi lang={lang} />
+  <KafeOrtakligi lang={lang} />
+  <Pilot lang={lang} />
+  <YolHaritasi lang={lang} />
+  <Buyume lang={lang} />
+  <Olcum lang={lang} />
+  <NedenPosaver lang={lang} />
+  <BlogOzet lang={lang} />
+  <Iletisim lang={lang} />
+</Layout>

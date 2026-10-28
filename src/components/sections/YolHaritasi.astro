@@ -1,17 +1,24 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
 const phases = [
-  { w: 'Hafta 1–2', t: 'Ölçüm', d: 'En az 3 kafede 14 günlük posa ölçümü, ortalama + sapma analizi' },
-  { w: 'Hafta 3–4', t: 'İzlenebilir toplama', d: 'QR/parti kayıtları, toplama zamanı, adres, nem takibi' },
-  { w: 'Hafta 5–7', t: 'Proses & rota denemesi', d: 'Kurutma sıcaklığı, solvent oranı, ekstraksiyon süresi + dinamik rota testi' },
-  { w: 'Hafta 8–9', t: 'Standardize et', d: 'Tekrarlanabilir ekstraksiyon + toplama eşikleri' },
-  { w: 'Hafta 10–11', t: 'Koku değerlendirmesi', d: 'Koku şeritleri, aday formüller' },
-  { w: 'Hafta 12', t: 'Çevresel ve ekonomik karar', d: 'Kütle dengesi, enerji, birim maliyet, rota mesafesi, yan akışlar' },
+  { w: t('Hafta 1–2', 'Weeks 1–2'), t: t('Ölçüm', 'Measurement'), d: t('En az 3 kafede 14 günlük posa ölçümü, ortalama + sapma analizi', '14 days of grounds measurement in at least 3 cafés, mean + deviation analysis') },
+  { w: t('Hafta 3–4', 'Weeks 3–4'), t: t('İzlenebilir toplama', 'Traceable collection'), d: t('QR/parti kayıtları, toplama zamanı, adres, nem takibi', 'QR / batch records, collection time, address, moisture tracking') },
+  { w: t('Hafta 5–7', 'Weeks 5–7'), t: t('Proses & rota denemesi', 'Process & route trials'), d: t('Kurutma sıcaklığı, solvent oranı, ekstraksiyon süresi + dinamik rota testi', 'Drying temperature, solvent ratio, extraction time + dynamic route test') },
+  { w: t('Hafta 8–9', 'Weeks 8–9'), t: t('Standardize et', 'Standardise'), d: t('Tekrarlanabilir ekstraksiyon + toplama eşikleri', 'Repeatable extraction + collection thresholds') },
+  { w: t('Hafta 10–11', 'Weeks 10–11'), t: t('Koku değerlendirmesi', 'Scent evaluation'), d: t('Koku şeritleri, aday formüller', 'Scent strips, candidate formulas') },
+  { w: t('Hafta 12', 'Week 12'), t: t('Çevresel ve ekonomik karar', 'Environmental and economic decision'), d: t('Kütle dengesi, enerji, birim maliyet, rota mesafesi, yan akışlar', 'Mass balance, energy, unit cost, route distance, side streams') },
 ];
 ---
 
-<SectionShell id="yol-haritasi" tone="dark-forest" kicker="12 hafta" title="12 haftada yerel pilot: önce ölç, sonra büyüt">
+<SectionShell id="yol-haritasi" tone="dark-forest" kicker={t('12 hafta', '12 weeks')} title={t('12 haftada yerel pilot: önce ölç, sonra büyüt', 'A local pilot in 12 weeks: measure first, then grow')}>
   <ol class="timeline">
     <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill" data-draw></span></li>
     {
@@ -27,7 +34,7 @@ const phases = [
   </ol>
 
   <blockquote class="statement quote" data-reveal>
-    “Ölçekleme kararı; yalnızca koku başarısına değil, enerji, rota verimliliği, geri kazanım ve malzeme akışı performansına göre verilecek.”
+    {t('“Ölçekleme kararı; yalnızca koku başarısına değil, enerji, rota verimliliği, geri kazanım ve malzeme akışı performansına göre verilecek.”', '“The decision to scale will rest not only on scent success, but on energy, route efficiency, recovery and material-flow performance.”')}
   </blockquote>
 </SectionShell>
 

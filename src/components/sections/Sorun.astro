@@ -1,29 +1,42 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 ---
 
-<SectionShell id="sorun" tone="light" kicker="Sorun" title="Atığın iklim maliyeti">
+<SectionShell id="sorun" tone="light" kicker={t('Sorun', 'The problem')} title={t('Atığın iklim maliyeti', 'The climate cost of waste')}>
   <ol class="flow">
     <li class="flow__rail" aria-hidden="true"><span class="flow__fill" data-draw></span></li>
     <li class="flow__step" data-reveal>
       <span class="flow__n">1</span>
-      <h3>Kaynağında karışma</h3>
-      <p>Kafelerdeki ıslak posa ayrıştırılmadan genel çöpe atılıyor.</p>
+      <h3>{t('Kaynağında karışma', 'Mixed at the source')}</h3>
+      <p>{t('Kafelerdeki ıslak posa ayrıştırılmadan genel çöpe atılıyor.', 'Wet grounds in cafés are thrown into general waste without being separated.')}</p>
     </li>
     <li class="flow__step" data-reveal>
       <span class="flow__n">2</span>
-      <h3>Oksijensiz çürüme</h3>
-      <p>Islak organik atık, genel atıkla birlikte düzenli depolama sahalarına götürülüyor.</p>
+      <h3>{t('Oksijensiz çürüme', 'Rotting without oxygen')}</h3>
+      <p>{t('Islak organik atık, genel atıkla birlikte düzenli depolama sahalarına götürülüyor.', 'Wet organic waste is taken to landfill together with general waste.')}</p>
     </li>
     <li class="flow__step flow__step--end" data-reveal>
       <span class="flow__n">3</span>
-      <h3>Metan (CH<sub>4</sub>) salımı</h3>
-      <p>Posalar oksijensiz koşullarda çürürken güçlü bir sera gazı olan metanın salımına yol açıyor.</p>
+      <h3>{t('Metan (CH', 'Methane (CH')}<sub>4</sub>{t(') salımı', ') release')}</h3>
+      <p>{t('Posalar oksijensiz koşullarda çürürken güçlü bir sera gazı olan metanın salımına yol açıyor.', 'As grounds rot without oxygen they release methane, a potent greenhouse gas.')}</p>
     </li>
   </ol>
 
   <p class="statement" data-reveal>
-    Sorunumuz sadece bir atık meselesi değil; <em>ıslak kahve posasının düzenli depolamada oluşturduğu önlenebilir metan emisyonudur.</em>
+    {
+      lang === 'en' ? (
+        <>Our problem is not just waste; it is <em>the avoidable methane emission that wet coffee grounds cause in landfill.</em></>
+      ) : (
+        <>Sorunumuz sadece bir atık meselesi değil; <em>ıslak kahve posasının düzenli depolamada oluşturduğu önlenebilir metan emisyonudur.</em></>
+      )
+    }
   </p>
 
   <p class="source-note">

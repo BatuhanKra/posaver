@@ -1,20 +1,42 @@
 ---
 import { url } from '../../lib/url';
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 ---
 
-<SectionShell id="hero" tone="dark-espresso" kicker="EU Climate Ideathon 2026 · Kayseri birincisi" title="Kahve biter. Koku kalır. Çöpe gitmesin." heading="h1">
+<SectionShell id="hero" tone="dark-espresso" kicker={t('EU Climate Ideathon 2026 · Kayseri birincisi', 'EU Climate Ideathon 2026 · Kayseri winner')} title={t('Kahve biter. Koku kalır. Çöpe gitmesin.', 'Coffee ends. The scent stays. Keep it out of the bin.')} heading="h1">
   <Fragment slot="title">
-    Kahve biter<span class="dot">.</span> Koku kalır<span class="dot">.</span><br />
-    <span class="hero__em">Çöpe gitmesin<span class="dot">.</span></span>
+    {
+      lang === 'en' ? (
+        <>
+          <span class="hero__s">Coffee ends<span class="dot">.</span></span> <span class="hero__s">The scent stays<span class="dot">.</span></span><br />
+          <span class="hero__em">Keep it out of the bin<span class="dot">.</span></span>
+        </>
+      ) : (
+        <>
+          <span class="hero__s">Kahve biter<span class="dot">.</span></span> <span class="hero__s">Koku kalır<span class="dot">.</span></span><br />
+          <span class="hero__em">Çöpe gitmesin<span class="dot">.</span></span>
+        </>
+      )
+    }
   </Fragment>
   <p class="section__lead hero__lead" data-reveal>
-    Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir
-    bir koku girdisine dönüştürüyoruz.
+    {
+      t(
+        'Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir bir koku girdisine dönüştürüyoruz.',
+        'We collect the coffee grounds cafés throw away, recover their aroma, and turn them into a traceable fragrance ingredient for perfume and essence makers.',
+      )
+    }
   </p>
   <div class="hero__actions" data-reveal data-cup-avoid>
-    <a class="btn btn--solid" href="#sorun">Nasıl çalışıyor</a>
-    <a class="link-arrow" href={url('/blog')}>Blogu oku</a>
+    <a class="btn btn--solid" href="#sorun">{t('Nasıl çalışıyor', 'How it works')}</a>
+    <a class="link-arrow" href={url('/blog')}>{t('Blogu oku', 'Read the blog (Turkish)')}</a>
   </div>
 </SectionShell>
 
@@ -60,12 +82,15 @@ import SectionShell from '../SectionShell.astro';
   }
 
   @media (max-width: 767px) {
+    #hero .hero__s {
+      display: block;
+    }
     #hero {
       gap: 1.1rem;
       padding-top: 6.5rem;
     }
     #hero h1 {
-      font-size: clamp(2.3rem, 10.5vw, 3.2rem);
+      font-size: clamp(2.2rem, 10vw, 3rem);
     }
   }
 </style>

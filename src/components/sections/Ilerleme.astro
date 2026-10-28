@@ -1,47 +1,54 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 
 const items = [
   {
-    s: 'Tamamlandı',
+    s: t('Tamamlandı', 'Done'),
     k: 'done',
-    t: 'Kayseri birincisi',
-    d: 'AB Türkiye Delegasyonu desteğiyle düzenlenen EU Climate Ideathon 2026 Kayseri yerel finalinde birinci olduk.',
+    t: t('Kayseri birincisi', 'Kayseri winner'),
+    d: t('AB Türkiye Delegasyonu desteğiyle düzenlenen EU Climate Ideathon 2026 Kayseri yerel finalinde birinci olduk.', 'We won first place at the Kayseri local final of EU Climate Ideathon 2026, organised with the support of the EU Delegation to Türkiye.'),
   },
   {
-    s: 'Sürüyor',
+    s: t('Sürüyor', 'Ongoing'),
     k: 'live',
-    t: 'Sahada pilot',
-    d: 'Bir üniversite kampüsündeki 3 kafede ayrı posa toplama pilotu: toplama, kayıt ve rota adımları gerçek kafe akışında test ediliyor.',
+    t: t('Sahada pilot', 'Field pilot'),
+    d: t('Bir üniversite kampüsündeki 3 kafede ayrı posa toplama pilotu: toplama, kayıt ve rota adımları gerçek kafe akışında test ediliyor.', 'A separate-collection pilot in 3 cafés on a university campus: collection, logging and routing are tested in real café workflows.'),
   },
   {
-    s: 'Taahhüt',
+    s: t('Taahhüt', 'Commitment'),
     k: 'done',
-    t: 'Sözleşmeye giren şart',
-    d: 'Pilot kampüsün 2027–2028 dönemi kafe ihale sözleşmelerine atık kahve posası toplama şartı eklendi.',
+    t: t('Sözleşmeye giren şart', 'A contract requirement'),
+    d: t('Pilot kampüsün 2027–2028 dönemi kafe ihale sözleşmelerine atık kahve posası toplama şartı eklendi.', 'Collecting waste coffee grounds has been added to the pilot campus’s 2027–2028 café tender contracts.'),
   },
   {
-    s: 'Sürüyor',
+    s: t('Sürüyor', 'Ongoing'),
     k: 'live',
-    t: 'Laboratuvar',
-    d: 'Bir üniversitenin eczacılık fakültesi laboratuvarında aroma geri kazanım deneyleri: kurutma koşulları, etanol ekstraksiyonu ve filtrasyon.',
+    t: t('Laboratuvar', 'Laboratory'),
+    d: t('Bir üniversitenin eczacılık fakültesi laboratuvarında aroma geri kazanım deneyleri: kurutma koşulları, etanol ekstraksiyonu ve filtrasyon.', 'Aroma recovery experiments in a university pharmacy faculty laboratory: drying conditions, ethanol extraction and filtration.'),
   },
   {
-    s: 'Sürüyor',
+    s: t('Sürüyor', 'Ongoing'),
     k: 'live',
-    t: 'Parfüm tarafı',
-    d: 'Bir kozmetik firmasıyla ekstraktın kategorik denemesi: kahve notasının hangi koku ailelerinde kullanılabileceği değerlendiriliyor.',
+    t: t('Parfüm tarafı', 'Perfumery side'),
+    d: t('Bir kozmetik firmasıyla ekstraktın kategorik denemesi: kahve notasının hangi koku ailelerinde kullanılabileceği değerlendiriliyor.', 'A categorical trial of the extract with a cosmetics company: assessing which fragrance families the coffee note could be used in.'),
   },
   {
-    s: '9–20 Kasım 2026',
+    s: t('9–20 Kasım 2026', '9–20 November 2026'),
     k: 'next',
-    t: 'COP31 ulusal final',
-    d: 'Kayseri birincisi olarak, Antalya’daki COP31 kapsamında yapılacak ulusal finale saha ve laboratuvar sonuçlarıyla gidiyoruz.',
+    t: t('COP31 ulusal final', 'COP31 national final'),
+    d: t('Kayseri birincisi olarak, Antalya’daki COP31 kapsamında yapılacak ulusal finale saha ve laboratuvar sonuçlarıyla gidiyoruz.', 'As the Kayseri winner we head to the national final held as part of COP31 in Antalya, bringing field and laboratory results.'),
   },
 ];
 ---
 
-<SectionShell id="ilerleme" tone="light" kicker="Gelinen nokta" title="Fikirden sahaya, sahadan laboratuvara">
+<SectionShell id="ilerleme" tone="light" kicker={t('Gelinen nokta', 'Where we are')} title={t('Fikirden sahaya, sahadan laboratuvara', 'From idea to field, from field to lab')}>
   <ul class="progress">
     {
       items.map((i) => (
@@ -55,10 +62,16 @@ const items = [
   </ul>
 
   <p class="statement" data-reveal>
-    2027–2028 hedefi: sözleşmeli toplama modeliyle önce <em>20 kafeye</em>, dönem sonunda <em>200 kafeye</em>.
+    {
+      lang === 'en' ? (
+        <>2027–2028 target: with a contracted collection model, <em>20 cafés</em> first, then <em>200 cafés</em> by the end of the period.</>
+      ) : (
+        <>2027–2028 hedefi: sözleşmeli toplama modeliyle önce <em>20 kafeye</em>, dönem sonunda <em>200 kafeye</em>.</>
+      )
+    }
   </p>
 
-  <p class="source-note">POSAVER proje dosyası (Ekim 2026)</p>
+  <p class="source-note">{t('POSAVER proje dosyası (Ekim 2026)', 'POSAVER project file (October 2026)')}</p>
 </SectionShell>
 
 <style>

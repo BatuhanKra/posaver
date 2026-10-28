@@ -1,12 +1,20 @@
 ---
 import { url } from '../../lib/url';
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 import { getPosts, formatDate } from '../../lib/blog';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 
 const posts = (await getPosts()).slice(0, 3);
 ---
 
-<SectionShell id="blog" tone="light" kicker="Blog" title="Son yazılar">
+<SectionShell id="blog" tone="light" kicker="Blog" title={t('Son yazılar', 'Latest posts')}>
+  {lang === 'en' && <p class="section__lead" data-reveal>Our blog is currently written in Turkish.</p>}
   <ul class="posts">
     {
       posts.map((p) => (
@@ -20,7 +28,7 @@ const posts = (await getPosts()).slice(0, 3);
       ))
     }
   </ul>
-  <a class="btn btn--dark" href={url('/blog')} data-reveal data-cup-avoid>Tüm yazılar</a>
+  <a class="btn btn--dark" href={url('/blog')} data-reveal data-cup-avoid>{t('Tüm yazılar', 'All posts')}</a>
 </SectionShell>
 
 <style>

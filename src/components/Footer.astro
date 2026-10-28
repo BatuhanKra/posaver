@@ -1,14 +1,29 @@
 ---
 import { site } from '../data/site';
 import { url } from '../lib/url';
+import { tx, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 ---
 
 <footer class="footer">
   <p><strong>{site.name}</strong> · {site.tagline}</p>
   <p>
-    EU Climate Ideathon 2026 projesi
+    {t('EU Climate Ideathon 2026 projesi', 'An EU Climate Ideathon 2026 project')}
     <span aria-hidden="true">·</span>
-    <a href={url('/yonetici/')}>Yönetici girişi</a>
+    {
+      lang === 'en' ? (
+        <a href={url('/')} hreflang="tr" lang="tr">Türkçe</a>
+      ) : (
+        <a href={url('/en/')} hreflang="en" lang="en">English</a>
+      )
+    }
+    <span aria-hidden="true">·</span>
+    <a href={url('/yonetici/')}>{t('Yönetici girişi', 'Admin login')}</a>
   </p>
 </footer>
 

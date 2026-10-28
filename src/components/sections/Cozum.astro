@@ -1,32 +1,39 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
 const steps = [
-  { t: 'Kafede ayrıştırma', d: 'Posa, genel çöpe karışmadan kaynağında ayrı toplanır.' },
-  { t: 'QR ile parti ve posa kaydı', d: 'Her toplama bir parti olarak kaydedilir.' },
-  { t: 'Veri destekli mikro-rota', d: 'Birikim verisine göre dinamik toplama.' },
-  { t: 'Kontrollü kurutma', d: 'Stabilizasyon ile posa bozulmadan işlenir.' },
-  { t: 'Aroma geri kazanımı', d: 'Etanol ekstraksiyonu ve filtrasyon.' },
-  { t: 'B2B girdi', d: 'Parfüm ve esans üreticileri için koku girdisi.' },
+  { t: t('Kafede ayrıştırma', 'Separation at the café'), d: t('Posa, genel çöpe karışmadan kaynağında ayrı toplanır.', 'Grounds are collected separately at the source, never mixed into general waste.') },
+  { t: t('QR ile parti ve posa kaydı', 'Batch and grounds record via QR'), d: t('Her toplama bir parti olarak kaydedilir.', 'Every collection is logged as a batch.') },
+  { t: t('Veri destekli mikro-rota', 'Data-driven micro-route'), d: t('Birikim verisine göre dinamik toplama.', 'Dynamic collection based on how much has built up.') },
+  { t: t('Kontrollü kurutma', 'Controlled drying'), d: t('Stabilizasyon ile posa bozulmadan işlenir.', 'Stabilisation lets the grounds be processed before they spoil.') },
+  { t: t('Aroma geri kazanımı', 'Aroma recovery'), d: t('Etanol ekstraksiyonu ve filtrasyon.', 'Ethanol extraction and filtration.') },
+  { t: t('B2B girdi', 'B2B ingredient'), d: t('Parfüm ve esans üreticileri için koku girdisi.', 'A fragrance ingredient for perfume and essence makers.') },
 ];
 
 const rivals = [
-  { n: 'Bio-bean / Revive Eco', f: 'Enerji ve biyoyakıt odaklı değerleme' },
-  { n: 'UpCircle Beauty', f: 'B2C cilt bakım ürünleri' },
-  { n: 'Kaffe Bueno', f: 'Kozmetik yağları ve aktif bileşenler, ağırlıklı B2B' },
-  { n: 'POSAVER', f: 'Yerel mikro-toplama + izlenebilirlik + aroma geri kazanımı, koku odaklı B2B girdi', us: true },
+  { n: 'Bio-bean / Revive Eco', f: t('Enerji ve biyoyakıt odaklı değerleme', 'Valorisation focused on energy and biofuel') },
+  { n: 'UpCircle Beauty', f: t('B2C cilt bakım ürünleri', 'B2C skincare products') },
+  { n: 'Kaffe Bueno', f: t('Kozmetik yağları ve aktif bileşenler, ağırlıklı B2B', 'Cosmetic oils and active ingredients, mostly B2B') },
+  { n: 'POSAVER', f: t('Yerel mikro-toplama + izlenebilirlik + aroma geri kazanımı, koku odaklı B2B girdi', 'Local micro-collection + traceability + aroma recovery, a fragrance-focused B2B ingredient'), us: true },
 ];
 const vs = [
-  { k: 'Hammadde', a: 'Taze kavrulmuş çekirdek (1 kg CO₂ ekstraktı için yaklaşık 10 kg çekirdek)', b: 'Atık espresso posası; bedelsiz ve yerel' },
-  { k: 'İzlenebilirlik', a: 'Lot düzeyinde', b: 'Kafe + gün + parti düzeyinde QR; kurutma ve ekstraksiyon koşulları kayıtlı' },
-  { k: 'Statü', a: 'Yok', b: '“Upcycled” hammadde. Givaudan ve dsm-firmenich gibi esans devleri bu talebi gösteriyor' },
-  { k: 'Koku profili', a: 'Taze kahve, güçlü üst notalar', b: 'Daha yumuşak, kavrulmuş ve karamelimsi gourmand alt nota (ölçülecek)' },
-  { k: 'Solvent', a: 'Çoğunlukla CO₂ ya da çözücü (hekzan dahil)', b: 'Yalnızca etanol; hekzan yok' },
-  { k: 'Kalan posa', a: 'Genelde değerlendirilmiyor', b: 'Kaskad: ikinci kullanıma gider (panel, mantar ortamı, filament)' },
+  { k: t('Hammadde', 'Raw material'), a: t('Taze kavrulmuş çekirdek (1 kg CO₂ ekstraktı için yaklaşık 10 kg çekirdek)', 'Freshly roasted beans (about 10 kg of beans for 1 kg of CO₂ extract)'), b: t('Atık espresso posası; bedelsiz ve yerel', 'Waste espresso grounds; free and local') },
+  { k: t('İzlenebilirlik', 'Traceability'), a: t('Lot düzeyinde', 'At lot level'), b: t('Kafe + gün + parti düzeyinde QR; kurutma ve ekstraksiyon koşulları kayıtlı', 'QR at café + day + batch level; drying and extraction conditions recorded') },
+  { k: t('Statü', 'Status'), a: t('Yok', 'None'), b: t('“Upcycled” hammadde. Givaudan ve dsm-firmenich gibi esans devleri bu talebi gösteriyor', '“Upcycled” raw material. Essence giants such as Givaudan and dsm-firmenich show the demand is real') },
+  { k: t('Koku profili', 'Scent profile'), a: t('Taze kahve, güçlü üst notalar', 'Fresh coffee, strong top notes'), b: t('Daha yumuşak, kavrulmuş ve karamelimsi gourmand alt nota (ölçülecek)', 'A softer, roasted, caramel-like gourmand base note (to be measured)') },
+  { k: t('Solvent', 'Solvent'), a: t('Çoğunlukla CO₂ ya da çözücü (hekzan dahil)', 'Mostly CO₂ or a solvent (hexane included)'), b: t('Yalnızca etanol; hekzan yok', 'Ethanol only; no hexane') },
+  { k: t('Kalan posa', 'Leftover grounds'), a: t('Genelde değerlendirilmiyor', 'Usually not used'), b: t('Kaskad: ikinci kullanıma gider (panel, mantar ortamı, filament)', 'Cascade: goes on to a second use (panels, mushroom substrate, filament)') },
 ];
 ---
 
-<SectionShell id="cozum" tone="dark-espresso" kicker="Çözüm" title="Çözümümüz ve bizi farklı kılan">
+<SectionShell id="cozum" tone="dark-espresso" kicker={t('Çözüm', 'The solution')} title={t('Çözümümüz ve bizi farklı kılan', 'Our solution and what sets us apart')}>
   <ol class="process">
     {
       steps.map((s, i) => (
@@ -40,10 +47,10 @@ const vs = [
   </ol>
 
   <div class="compare" data-reveal>
-    <h3 class="compare__title">Rakip karşılaştırması</h3>
+    <h3 class="compare__title">{t('Rakip karşılaştırması', 'Competitor comparison')}</h3>
     <table>
       <thead>
-        <tr><th scope="col">Yaklaşım</th><th scope="col">Odak</th></tr>
+        <tr><th scope="col">{t('Yaklaşım', 'Approach')}</th><th scope="col">{t('Odak', 'Focus')}</th></tr>
       </thead>
       <tbody>
         {
@@ -59,18 +66,18 @@ const vs = [
   </div>
 
   <div class="compare" data-reveal>
-    <h3 class="compare__title">Geleneksel kahve ekstraktından farkımız</h3>
-    <table>
+    <h3 class="compare__title">{t('Geleneksel kahve ekstraktından farkımız', 'How we differ from conventional coffee extract')}</h3>
+    <table class="vs-table">
       <thead>
-        <tr><th scope="col">Konu</th><th scope="col">Geleneksel</th><th scope="col">POSAVER</th></tr>
+        <tr><th scope="col">{t('Konu', 'Topic')}</th><th scope="col">{t('Geleneksel', 'Conventional')}</th><th scope="col">POSAVER</th></tr>
       </thead>
       <tbody>
         {
           vs.map((r) => (
             <tr class="is-us-col">
               <th scope="row">{r.k}</th>
-              <td>{r.a}</td>
-              <td class="us">{r.b}</td>
+              <td data-label={t('Geleneksel', 'Conventional')}>{r.a}</td>
+              <td class="us" data-label="POSAVER">{r.b}</td>
             </tr>
           ))
         }
@@ -79,9 +86,15 @@ const vs = [
   </div>
 
   <p class="statement" data-reveal>
-    Bizi farklı kılan; <em>posanın koku değerini kaynağında geri kazanırken</em>, birikim verisine göre dinamik rota önerileriyle yerel toplama ağını daha verimli hale getirmeyi hedeflememiz.
+    {
+      lang === 'en' ? (
+        <>What sets us apart: we recover the aroma value of the grounds <em>at the source</em>, and aim to make local collection more efficient with dynamic route suggestions based on how much has built up.</>
+      ) : (
+        <>Bizi farklı kılan; <em>posanın koku değerini kaynağında geri kazanırken</em>, birikim verisine göre dinamik rota önerileriyle yerel toplama ağını daha verimli hale getirmeyi hedeflememiz.</>
+      )
+    }
   </p>
-  <p class="source-note">Hekserij (CO₂ kahve ekstraktı); CHEM21 Solvent Selection Guide; Givaudan ve dsm-firmenich upcycling duyuruları; POSAVER lojistik ve kafe ortaklığı çalışması (Ekim 2026)</p>
+  <p class="source-note">{t('Hekserij (CO₂ kahve ekstraktı); CHEM21 Solvent Selection Guide; Givaudan ve dsm-firmenich upcycling duyuruları; POSAVER lojistik ve kafe ortaklığı çalışması (Ekim 2026)', 'Hekserij (CO₂ coffee extract); CHEM21 Solvent Selection Guide; Givaudan and dsm-firmenich upcycling announcements; POSAVER logistics and café partnership study (October 2026)')}</p>
 </SectionShell>
 
 <style>
@@ -164,6 +177,36 @@ const vs = [
   @media (max-width: 1023px) {
     .process {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 639px) {
+    .vs-table thead {
+      display: none;
+    }
+    .vs-table,
+    .vs-table tbody,
+    .vs-table tr,
+    .vs-table th,
+    .vs-table td {
+      display: block;
+    }
+    .vs-table tr {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .vs-table th,
+    .vs-table td {
+      border: 0;
+      padding: 0.2rem 0;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    .vs-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: var(--text-small);
+      color: var(--accent);
+      font-weight: 600;
     }
   }
   @media (max-width: 599px) {

@@ -1,20 +1,27 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
 const stages = [
-  { n: '1', t: 'Yerel pilot', big: '3 kafe', d: ['QR + parti takibi', 'Kalite + rota doğrulama'] },
-  { n: '2', t: 'Aynı bölge', big: 'Yeni kafeler', d: ['Rota optimizasyonu', 'Doluluk + mesafe takibi'] },
+  { n: '1', t: t('Yerel pilot', 'Local pilot'), big: t('3 kafe', '3 cafés'), d: [t('QR + parti takibi', 'QR + batch tracking'), t('Kalite + rota doğrulama', 'Quality + route validation')] },
+  { n: '2', t: t('Aynı bölge', 'Same region'), big: t('Yeni kafeler', 'New cafés'), d: [t('Rota optimizasyonu', 'Route optimisation'), t('Doluluk + mesafe takibi', 'Fill level + distance tracking')] },
   {
     n: '3',
-    t: 'Mikro merkezler',
+    t: t('Mikro merkezler', 'Micro hubs'),
     big: '3 → 20 → 200',
-    d: ['Bölgesel merkezler', 'AI destekli rota optimizasyonu', 'Standardizasyon'],
+    d: [t('Bölgesel merkezler', 'Regional hubs'), t('AI destekli rota optimizasyonu', 'AI-assisted route optimisation'), t('Standardizasyon', 'Standardisation')],
   },
-  { n: '4', t: 'B2B tedarik', big: 'Düzenli koku girdisi', d: ['İzlenebilir kaynak', 'Ölçülmüş çevresel performans'] },
+  { n: '4', t: t('B2B tedarik', 'B2B supply'), big: t('Düzenli koku girdisi', 'A steady fragrance input'), d: [t('İzlenebilir kaynak', 'Traceable source'), t('Ölçülmüş çevresel performans', 'Measured environmental performance')] },
 ];
 ---
 
-<SectionShell id="buyume" tone="light-gray" kicker="Büyüme" title="Kontrollü büyüme: mikro ağdan makro ölçeğe">
+<SectionShell id="buyume" tone="light-gray" kicker={t('Büyüme', 'Growth')} title={t('Kontrollü büyüme: mikro ağdan makro ölçeğe', 'Controlled growth: from a micro network to macro scale')}>
   <ol class="stairs">
     {
       stages.map((s) => (
@@ -38,7 +45,7 @@ const stages = [
       <path d="M20 4v4h-4" />
     </svg>
     <p>
-      <strong>Döngü:</strong> B2B hammadde satışının geliri → yerel toplama ve mikro-merkez operasyonunun devamlılığı.
+      <strong>{t('Döngü:', 'The loop:')}</strong> {t('B2B hammadde satışının geliri → yerel toplama ve mikro-merkez operasyonunun devamlılığı.', 'Revenue from B2B raw-material sales → keeps local collection and micro-hub operations running.')}
     </p>
   </div>
 </SectionShell>

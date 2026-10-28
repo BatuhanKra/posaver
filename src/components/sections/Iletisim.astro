@@ -1,56 +1,63 @@
 ---
 import SectionShell from '../SectionShell.astro';
 import { site } from '../../data/site';
+import { tx, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 
 const mail = (subject: string) => `mailto:${site.contactEmail}?subject=${encodeURIComponent(subject)}`;
 ---
 
-<SectionShell id="iletisim" tone="dark-espresso" kicker="İletişim" title="Birlikte başlayalım">
+<SectionShell id="iletisim" tone="dark-espresso" kicker={t('İletişim', 'Contact')} title={t('Birlikte başlayalım', 'Let’s start together')}>
   <div class="ctas">
     <article class="cta card" data-reveal>
-      <h3>Pilot kafemiz ol</h3>
+      <h3>{t('Pilot kafemiz ol', 'Become our pilot café')}</h3>
       <p>
-        Pilot bölgede ıslak kahve posanızı ayrı toplayıp parti olarak kaydetmek ister misiniz? İlk 3 kafelik pilot ağımızın parçası olun.
+        {t('Pilot bölgede ıslak kahve posanızı ayrı toplayıp parti olarak kaydetmek ister misiniz? İlk 3 kafelik pilot ağımızın parçası olun.', 'Would you like to collect your wet coffee grounds separately and log them as batches in the pilot area? Be part of our first 3-café pilot network.')}
       </p>
-      <a class="btn btn--solid" href={mail('POSAVER — Pilot kafe olmak istiyorum')} data-cup-avoid>Pilot kafemiz ol</a>
+      <a class="btn btn--solid" href={mail(t('POSAVER — Pilot kafe olmak istiyorum', 'POSAVER — I would like to be a pilot café'))} data-cup-avoid>{t('Pilot kafemiz ol', 'Become our pilot café')}</a>
     </article>
     <article class="cta card" data-reveal>
-      <h3>Koku ortağımız ol</h3>
+      <h3>{t('Koku ortağımız ol', 'Become our fragrance partner')}</h3>
       <p>
-        Parfüm, esans veya kozmetik üreticisiyseniz, izlenebilir kahve posası kökenli koku girdisinin değerlendirmesinde bizimle çalışın.
+        {t('Parfüm, esans veya kozmetik üreticisiyseniz, izlenebilir kahve posası kökenli koku girdisinin değerlendirmesinde bizimle çalışın.', 'If you make perfume, essences or cosmetics, work with us on evaluating a traceable fragrance ingredient made from coffee grounds.')}
       </p>
-      <a class="btn btn--solid" href={mail('POSAVER — Koku ortağı olmak istiyorum')} data-cup-avoid>Koku ortağımız ol</a>
+      <a class="btn btn--solid" href={mail(t('POSAVER — Koku ortağı olmak istiyorum', 'POSAVER — I would like to be a fragrance partner'))} data-cup-avoid>{t('Koku ortağımız ol', 'Become our fragrance partner')}</a>
     </article>
   </div>
 
-  <form class="form" id="contact-form" data-email={site.contactEmail} action={`mailto:${site.contactEmail}`} method="post" enctype="text/plain" data-reveal>
-    <h3>Bize yazın</h3>
+  <form class="form" id="contact-form" data-email={site.contactEmail} data-name-label={t('Ad soyad', 'Name')} data-email-label={t('E-posta', 'Email')} action={`mailto:${site.contactEmail}`} method="post" enctype="text/plain" data-reveal>
+    <h3>{t('Bize yazın', 'Write to us')}</h3>
     <div class="form__grid">
       <label>
-        <span>Ad soyad</span>
+        <span>{t('Ad soyad', 'Full name')}</span>
         <input name="name" type="text" autocomplete="name" required />
       </label>
       <label>
-        <span>E-posta</span>
+        <span>{t('E-posta', 'Email')}</span>
         <input name="email" type="email" autocomplete="email" required />
       </label>
       <label class="form__wide">
-        <span>Ben</span>
+        <span>{t('Ben', 'I am')}</span>
         <select name="type">
-          <option>Kafe sahibiyim / yöneticisiyim</option>
-          <option>Parfüm, esans veya kozmetik üreticisiyim</option>
-          <option>Başka bir konuda yazıyorum</option>
+          <option>{t('Kafe sahibiyim / yöneticisiyim', 'A café owner / manager')}</option>
+          <option>{t('Parfüm, esans veya kozmetik üreticisiyim', 'A perfume, essence or cosmetics maker')}</option>
+          <option>{t('Başka bir konuda yazıyorum', 'Writing about something else')}</option>
         </select>
       </label>
       <label class="form__wide">
-        <span>Mesajınız</span>
+        <span>{t('Mesajınız', 'Your message')}</span>
         <textarea name="message" rows="4" required></textarea>
       </label>
     </div>
-    <button class="btn btn--solid" type="submit">E-posta uygulamasında aç</button>
+    <button class="btn btn--solid" type="submit">{t('E-posta uygulamasında aç', 'Open in your email app')}</button>
   </form>
   <p class="team" data-reveal>
-    <span>Ekip</span> Fatmanur Doğan · Batuhan Kara · Orhan Bilgin · Ali Açmak
+    <span>{t('Ekip', 'Team')}</span> Fatmanur Doğan · Batuhan Kara · Orhan Bilgin · Ali Açmak
   </p>
 </SectionShell>
 
@@ -60,7 +67,7 @@ const mail = (subject: string) => `mailto:${site.contactEmail}?subject=${encodeU
     e.preventDefault();
     const d = new FormData(form);
     const subject = `POSAVER — ${d.get('type')}`;
-    const body = `Ad soyad: ${d.get('name')}\nE-posta: ${d.get('email')}\n\n${d.get('message')}`;
+    const body = `${form.dataset.nameLabel}: ${d.get('name')}\n${form.dataset.emailLabel}: ${d.get('email')}\n\n${d.get('message')}`;
     window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>

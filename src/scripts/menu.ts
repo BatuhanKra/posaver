@@ -27,7 +27,7 @@ export function initMenu() {
   function setOpen(next: boolean, after?: () => void) {
     open = next;
     btn!.setAttribute('aria-expanded', String(open));
-    btn!.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+    btn!.setAttribute('aria-label', (open ? btn!.dataset.labelClose : btn!.dataset.labelOpen) ?? '');
     tl?.kill();
 
     if (open) {

@@ -1,29 +1,36 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
 const pairs = [
-  { k: 'Etanol yanıcı solvent', c: 'Havalandırmalı çeker ocak, düşük hacim (<5 L), KKD, kıvılcımsız laboratuvar' },
-  { k: 'Kurutma elektrik tüketir', c: 'kWh/kg ölçümü, pasif/güneş destekli kurutma değerlendirmesi' },
-  { k: 'Mesafe arttıkça taşıma ayak izi artar', c: 'Mikro-toplama ağı' },
-  { k: 'Proseste fire riski', c: 'Kütle dengesiyle fire ve yan akış takibi, bertarafın minimize edilmesi' },
+  { k: t('Etanol yanıcı solvent', 'Ethanol is a flammable solvent'), c: t('Havalandırmalı çeker ocak, düşük hacim (<5 L), KKD, kıvılcımsız laboratuvar', 'Ventilated fume hood, low volume (<5 L), PPE, spark-free laboratory') },
+  { k: t('Kurutma elektrik tüketir', 'Drying uses electricity'), c: t('kWh/kg ölçümü, pasif/güneş destekli kurutma değerlendirmesi', 'Measure kWh/kg, assess passive / solar-assisted drying') },
+  { k: t('Mesafe arttıkça taşıma ayak izi artar', 'Transport footprint grows with distance'), c: t('Mikro-toplama ağı', 'A micro-collection network') },
+  { k: t('Proseste fire riski', 'Loss risk in the process'), c: t('Kütle dengesiyle fire ve yan akış takibi, bertarafın minimize edilmesi', 'Track losses and side streams with a mass balance, minimise disposal') },
 ];
 
 const needs = [
-  { t: 'Ekipman', d: 'Etanol + cam ekstraksiyon/filtrasyon düzeneği' },
-  { t: 'Hammadde', d: 'Pilot bölgede 3 kafeden ıslak posa' },
-  { t: 'Alan', d: 'Havalandırmalı kontrollü alan' },
-  { t: 'Ekip', d: 'Proses sorumlusu + saha/toplama sorumlusu' },
-  { t: 'Paydaşlar', d: '3 pilot kafe + laboratuvar + koku değerlendirme paydaşı' },
-  { t: 'Bütçe', d: 'Solvent, cam ekipman, kurutma, toplama kapları, lojistik' },
+  { t: t('Ekipman', 'Equipment'), d: t('Etanol + cam ekstraksiyon/filtrasyon düzeneği', 'Ethanol + glass extraction / filtration setup') },
+  { t: t('Hammadde', 'Raw material'), d: t('Pilot bölgede 3 kafeden ıslak posa', 'Wet grounds from 3 cafés in the pilot area') },
+  { t: t('Alan', 'Space'), d: t('Havalandırmalı kontrollü alan', 'A ventilated, controlled area') },
+  { t: t('Ekip', 'Team'), d: t('Proses sorumlusu + saha/toplama sorumlusu', 'A process lead + a field / collection lead') },
+  { t: t('Paydaşlar', 'Stakeholders'), d: t('3 pilot kafe + laboratuvar + koku değerlendirme paydaşı', '3 pilot cafés + a laboratory + a scent evaluation partner') },
+  { t: t('Bütçe', 'Budget'), d: t('Solvent, cam ekipman, kurutma, toplama kapları, lojistik', 'Solvent, glassware, drying, collection bins, logistics') },
 ];
 ---
 
-<SectionShell id="pilot" tone="light" kicker="Pilot" title="Teknik kararlar ve kısıtlar">
+<SectionShell id="pilot" tone="light" kicker="Pilot" title={t('Teknik kararlar ve kısıtlar', 'Technical decisions and constraints')}>
   <div class="pairs">
     <div class="pairs__head" aria-hidden="true">
-      <span>Kısıt</span>
+      <span>{t('Kısıt', 'Constraint')}</span>
       <span></span>
-      <span>Çözüm</span>
+      <span>{t('Çözüm', 'Response')}</span>
     </div>
     {
       pairs.map((p) => (
@@ -37,7 +44,7 @@ const needs = [
   </div>
 
   <div class="needs">
-    <h3 data-reveal>Kaynak ihtiyaçları</h3>
+    <h3 data-reveal>{t('Kaynak ihtiyaçları', 'Resource needs')}</h3>
     <ul class="needs__grid">
       {
         needs.map((n) => (

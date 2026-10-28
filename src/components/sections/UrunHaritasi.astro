@@ -1,32 +1,50 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
 
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
+
 const extract = [
-  { w: 'Şimdi', t: 'Ev kokusu ve kafe imza kokusu', d: 'Mum, difüzör, oda spreyi. Mevzuatı hafif, hikâyesi güçlü. Kafeye özel ortak marka ürünler.' },
-  { w: 'Kısa vade', t: 'Esans evlerine standardize ekstrakt', d: 'GC-MS profili, alerjen beyanı ve parti QR’ıyla. Parfümde gourmand alt nota (kahve + bergamot, vanilya, tonka).' },
-  { w: 'Orta vade', t: 'Kozmetik ve fason üretim', d: 'Kahve yağı ve peeling ürünleri. Kozmetik mevzuatı (TİTCK, ÜTS) süreciyle.' },
-  { w: 'Ar-Ge', t: 'Antioksidan etken madde', d: 'Posanın polifenollerinden etken madde; etkinlik iddiası test ister.' },
+  { w: t('Şimdi', 'Now'), t: t('Ev kokusu ve kafe imza kokusu', 'Home scent and café signature scent'), d: t('Mum, difüzör, oda spreyi. Mevzuatı hafif, hikâyesi güçlü. Kafeye özel ortak marka ürünler.', 'Candles, diffusers, room sprays. Light regulation, strong story. Co-branded products made for the café.') },
+  { w: t('Kısa vade', 'Short term'), t: t('Esans evlerine standardize ekstrakt', 'Standardised extract for essence houses'), d: t('GC-MS profili, alerjen beyanı ve parti QR’ıyla. Parfümde gourmand alt nota (kahve + bergamot, vanilya, tonka).', 'With a GC-MS profile, allergen declaration and batch QR. A gourmand base note in perfume (coffee + bergamot, vanilla, tonka).') },
+  { w: t('Orta vade', 'Medium term'), t: t('Kozmetik ve fason üretim', 'Cosmetics and contract manufacturing'), d: t('Kahve yağı ve peeling ürünleri. Kozmetik mevzuatı (TİTCK, ÜTS) süreciyle.', 'Coffee oil and scrub products, following the cosmetics regulation process (TİTCK, ÜTS).') },
+  { w: t('Ar-Ge', 'R&D'), t: t('Antioksidan etken madde', 'Antioxidant active ingredient'), d: t('Posanın polifenollerinden etken madde; etkinlik iddiası test ister.', 'An active ingredient from the polyphenols in the grounds; any efficacy claim needs testing.') },
 ];
 
 const residue = [
-  { w: 'Kısa vade', t: '3D yazıcı filamenti ve mantar ortamı', d: 'Yağı alınmış posa PLA filamentine katılabiliyor; istiridye mantarı için yetiştirme ortamı olabiliyor.' },
-  { w: 'Orta vade', t: 'Biyokompozit panel ve tuğla', d: 'Kayseri mobilya sanayisiyle iç mekân paneli; pişmiş kil tuğlaya katkı.' },
-  { w: 'Ar-Ge', t: 'Biyokömür ve aktif karbon', d: 'Toprak iyileştirici ve filtre malzemesi; biyokömür uzaklaştırma kredisi için ek çalışma ister.' },
-  { w: 'Ar-Ge', t: 'Metalurjide indirgen', d: 'Mangan–demir ayrımında ve lityum kazanımında karbon kaynağı olarak laboratuvar aşamasında incelenecek.' },
+  { w: t('Kısa vade', 'Short term'), t: t('3D yazıcı filamenti ve mantar ortamı', '3D-printer filament and mushroom substrate'), d: t('Yağı alınmış posa PLA filamentine katılabiliyor; istiridye mantarı için yetiştirme ortamı olabiliyor.', 'Defatted grounds can be blended into PLA filament and can serve as a growing medium for oyster mushrooms.') },
+  { w: t('Orta vade', 'Medium term'), t: t('Biyokompozit panel ve tuğla', 'Biocomposite panels and brick'), d: t('Kayseri mobilya sanayisiyle iç mekân paneli; pişmiş kil tuğlaya katkı.', 'Interior panels with Kayseri’s furniture industry; an additive for fired clay brick.') },
+  { w: t('Ar-Ge', 'R&D'), t: t('Biyokömür ve aktif karbon', 'Biochar and activated carbon'), d: t('Toprak iyileştirici ve filtre malzemesi; biyokömür uzaklaştırma kredisi için ek çalışma ister.', 'A soil improver and filter material; a biochar removal credit would need further work.') },
+  { w: t('Ar-Ge', 'R&D'), t: t('Metalurjide indirgen', 'Reducing agent in metallurgy'), d: t('Mangan–demir ayrımında ve lityum kazanımında karbon kaynağı olarak laboratuvar aşamasında incelenecek.', 'To be studied at lab scale as a carbon source for manganese–iron separation and lithium recovery.') },
 ];
 ---
 
-<SectionShell id="urun-haritasi" tone="dark-forest" kicker="Ürün haritası" title="Koku çıkar, kalan posa da boşa gitmez">
+<SectionShell id="urun-haritasi" tone="dark-forest" kicker={t('Ürün haritası', 'Product map')} title={t('Koku çıkar, kalan posa da boşa gitmez', 'The scent comes out; the leftover grounds still count')}>
   <p class="section__lead" data-reveal>
-    İki hammaddemiz var: <strong>ekstrakt</strong> ve ekstraksiyondan sonra kalan <strong>posa</strong>.
-    Ekstrakt kütlenin yalnızca yaklaşık %12’si. Kalan yaklaşık %88 için de alıcı bulmak, hem gelir hem “sıfır atık” iddiası için şart.
+    {
+      lang === 'en' ? (
+        <>
+          We have two raw materials: the <strong>extract</strong> and the <strong>grounds</strong> left after extraction.
+          The extract is only about 12% of the mass. Finding buyers for the remaining ~88% is essential for both revenue and the “zero waste” claim.
+        </>
+      ) : (
+        <>
+          İki hammaddemiz var: <strong>ekstrakt</strong> ve ekstraksiyondan sonra kalan <strong>posa</strong>.
+          Ekstrakt kütlenin yalnızca yaklaşık %12’si. Kalan yaklaşık %88 için de alıcı bulmak, hem gelir hem “sıfır atık” iddiası için şart.
+        </>
+      )
+    }
   </p>
 
   <div class="lanes">
     <article class="lane" data-reveal>
       <header>
-        <p class="lane__pct">~%12</p>
-        <h3>Ekstrakt</h3>
+        <p class="lane__pct">{t('~%12', '~12%')}</p>
+        <h3>{t('Ekstrakt', 'Extract')}</h3>
       </header>
       <ol>
         {
@@ -43,8 +61,8 @@ const residue = [
 
     <article class="lane" data-reveal>
       <header>
-        <p class="lane__pct">~%88</p>
-        <h3>Kalan posa</h3>
+        <p class="lane__pct">{t('~%88', '~88%')}</p>
+        <h3>{t('Kalan posa', 'Leftover grounds')}</h3>
       </header>
       <ol>
         {
@@ -61,17 +79,30 @@ const residue = [
   </div>
 
   <p class="statement" data-reveal>
-    Cam olmaz, ama <em>seramik sırı</em> olur: kafenin kendi posasının külüyle sırlanmış fincan.
+    {
+      lang === 'en' ? (
+        <>Not glass, but <em>ceramic glaze</em>: a cup glazed with the ash of the café’s own grounds.</>
+      ) : (
+        <>Cam olmaz, ama <em>seramik sırı</em> olur: kafenin kendi posasının külüyle sırlanmış fincan.</>
+      )
+    }
   </p>
 
   <p class="honest" data-reveal>
-    Bu uygulamaların çoğu literatürde ve başka firmalarda var. Ama bizim posamızın koku profili, yağ ve antioksidan içeriği henüz ölçülmedi.
-    Hangi ürüne gidileceğini GC-MS sonuçları ve esans tarafının geri bildirimi belirleyecek.
+    {
+      t(
+        'Bu uygulamaların çoğu literatürde ve başka firmalarda var. Ama bizim posamızın koku profili, yağ ve antioksidan içeriği henüz ölçülmedi. Hangi ürüne gidileceğini GC-MS sonuçları ve esans tarafının geri bildirimi belirleyecek.',
+        'Most of these applications already exist in the literature and at other companies. But the scent profile, oil and antioxidant content of our own grounds have not been measured yet. GC-MS results and feedback from the essence side will decide which product to pursue.',
+      )
+    }
   </p>
 
   <p class="source-note">
-    Oh Hyung-sin (2014), J. Korean Ceramic Society; Washington State University (2020); Muñoz Velasco vd. (2015); Givaudan upcycling ve Koffee’Up; Perfumer &amp; Flavorist;
-    Miłek vd. (2023); Top vd. (2022), JOM; POSAVER ürün ve sektör haritası (Ekim 2026)
+    {
+      lang === 'en'
+        ? 'Oh Hyung-sin (2014), J. Korean Ceramic Society; Washington State University (2020); Muñoz Velasco et al. (2015); Givaudan upcycling and Koffee’Up; Perfumer & Flavorist; Miłek et al. (2023); Top et al. (2022), JOM; POSAVER product and sector map (October 2026)'
+        : 'Oh Hyung-sin (2014), J. Korean Ceramic Society; Washington State University (2020); Muñoz Velasco vd. (2015); Givaudan upcycling ve Koffee’Up; Perfumer & Flavorist; Miłek vd. (2023); Top vd. (2022), JOM; POSAVER ürün ve sektör haritası (Ekim 2026)'
+    }
   </p>
 </SectionShell>
 

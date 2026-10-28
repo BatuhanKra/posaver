@@ -1,26 +1,33 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 
 const pillars = [
   {
-    t: 'Atıktan geri kazanım',
-    m: ['kg posa/hafta', '% ayrı toplama'],
-    r: 'Kaçınılan depolama emisyonu',
+    t: t('Atıktan geri kazanım', 'Recovery from waste'),
+    m: [t('kg posa/hafta', 'kg grounds / week'), t('% ayrı toplama', '% collected separately')],
+    r: t('Kaçınılan depolama emisyonu', 'Avoided landfill emissions'),
   },
   {
-    t: 'Akıllı toplama ve taşıma',
-    m: ['km/kg posa', 'Sabit rota ↔ dinamik rota'],
-    r: 'Taşıma kaynaklı emisyon',
+    t: t('Akıllı toplama ve taşıma', 'Smart collection and transport'),
+    m: [t('km/kg posa', 'km / kg grounds'), t('Sabit rota ↔ dinamik rota', 'Fixed route ↔ dynamic route')],
+    r: t('Taşıma kaynaklı emisyon', 'Transport emissions'),
   },
   {
-    t: 'Proses verimliliği',
-    m: ['kWh/kg posa', 'g özüt/kg posa'],
-    r: 'Proses enerji emisyonu',
+    t: t('Proses verimliliği', 'Process efficiency'),
+    m: [t('kWh/kg posa', 'kWh / kg grounds'), t('g özüt/kg posa', 'g extract / kg grounds')],
+    r: t('Proses enerji emisyonu', 'Process energy emissions'),
   },
 ];
 ---
 
-<SectionShell id="olcum" tone="dark-espresso" kicker="Ölçüm" title="İklim etkisini nasıl ölçeceğiz?">
+<SectionShell id="olcum" tone="dark-espresso" kicker={t('Ölçüm', 'Measurement')} title={t('İklim etkisini nasıl ölçeceğiz?', 'How will we measure climate impact?')}>
   <ul class="pillars">
     {
       pillars.map((p) => (
@@ -38,15 +45,15 @@ const pillars = [
   </ul>
 
   <div class="formula" data-formula>
-    <p class="formula__unit">kg CO<sub>2</sub>e / kg işlenen posa</p>
-    <p class="formula__net" data-f="net">Net iklim faydası</p>
+    <p class="formula__unit">{t('kg CO', 'kg CO')}<sub>2</sub>{t('e / kg işlenen posa', 'e / kg grounds processed')}</p>
+    <p class="formula__net" data-f="net">{t('Net iklim faydası', 'Net climate benefit')}</p>
     <div class="formula__eq">
       <span class="op" data-f="step" aria-hidden="false">=</span>
-      <span class="term term--plus" data-f="step">Kaçınılan depolama emisyonu</span>
+      <span class="term term--plus" data-f="step">{t('Kaçınılan depolama emisyonu', 'Avoided landfill emissions')}</span>
       <span class="op" data-f="step">−</span>
-      <span class="term term--minus" data-f="step">Taşıma emisyonu</span>
+      <span class="term term--minus" data-f="step">{t('Taşıma emisyonu', 'Transport emissions')}</span>
       <span class="op" data-f="step">−</span>
-      <span class="term term--minus" data-f="step">Proses enerji emisyonu</span>
+      <span class="term term--minus" data-f="step">{t('Proses enerji emisyonu', 'Process energy emissions')}</span>
     </div>
     <div class="formula__bar" aria-hidden="true"><span data-draw></span></div>
   </div>

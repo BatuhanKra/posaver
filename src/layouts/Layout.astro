@@ -4,19 +4,29 @@ import '../styles/global.css';
 import CupCanvas from '../components/CupCanvas.astro';
 import Menu from '../components/Menu.astro';
 import Footer from '../components/Footer.astro';
+import { tx, type Lang } from '../lib/i18n';
 
 interface Props {
   title?: string;
   description?: string;
   showCup?: boolean;
   noindex?: boolean;
+  lang?: Lang;
+  /** Set on pages that exist in both languages so search engines can link them. */
+  alternates?: { tr: string; en: string };
 }
 
 const {
-  title = 'POSAVER — Kahve biter. Koku kalır.',
-  description = 'Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir bir koku girdisine dönüştürüyoruz.',
+  lang = 'tr',
+  title = tx(lang, 'POSAVER — Kahve biter. Koku kalır.', 'POSAVER — Coffee ends. The scent stays.'),
+  description = tx(
+    lang,
+    'Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir bir koku girdisine dönüştürüyoruz.',
+    'We collect the coffee grounds cafés throw away, recover their aroma, and turn them into a traceable fragrance ingredient for perfume and essence makers.',
+  ),
   showCup = false,
   noindex = false,
+  alternates,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -24,7 +34,7 @@ const ogImage = new URL(url('/og.png'), Astro.site);
 ---
 
 <!doctype html>
-<html lang="tr">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,7 +42,7 @@ const ogImage = new URL(url('/og.png'), Astro.site);
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#2a1a12" />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'tr_TR'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -41,6 +51,15 @@ const ogImage = new URL(url('/og.png'), Astro.site);
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href={canonical} />
+    {
+      alternates && (
+        <>
+          <link rel="alternate" hreflang="tr" href={new URL(url(alternates.tr), Astro.site)} />
+          <link rel="alternate" hreflang="en" href={new URL(url(alternates.en), Astro.site)} />
+          <link rel="alternate" hreflang="x-default" href={new URL(url(alternates.tr), Astro.site)} />
+        </>
+      )
+    }
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <title>{title}</title>
@@ -49,16 +68,16 @@ const ogImage = new URL(url('/og.png'), Astro.site);
     </script>
   </head>
   <body>
-    <a class="logo" href={url('/')} aria-label="POSAVER ana sayfa">
+    <a class="logo" href={url(lang === 'en' ? '/en/' : '/')} aria-label={tx(lang, 'POSAVER ana sayfa', 'POSAVER home')}>
       <span class="logo__name">POSAVER</span>
       <span class="logo__sub">Sustainable Fragrance</span>
     </a>
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
     {showCup && <CupCanvas />}
-    <Menu />
+    <Menu lang={lang} />
     <script>
       import '../scripts/main';
     </script>

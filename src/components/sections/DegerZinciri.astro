@@ -1,48 +1,55 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 ---
 
-<SectionShell id="deger-zinciri" tone="light-gray" kicker="Değer zinciri" title="Kim için değer yaratıyoruz?">
+<SectionShell id="deger-zinciri" tone="light-gray" kicker={t('Değer zinciri', 'Value chain')} title={t('Kim için değer yaratıyoruz?', 'Who do we create value for?')}>
   <div class="chain">
     <article class="chain__node card" data-reveal>
-      <p class="chain__tag">Kaynak / tedarik ortakları</p>
-      <h3>Kafeler</h3>
+      <p class="chain__tag">{t('Kaynak / tedarik ortakları', 'Source / supply partners')}</p>
+      <h3>{t('Kafeler', 'Cafés')}</h3>
       <ul>
-        <li>Düzenli posa</li>
-        <li>Ayrı toplama</li>
-        <li>Parti takibi</li>
+        <li>{t('Düzenli posa', 'Regular grounds')}</li>
+        <li>{t('Ayrı toplama', 'Separate collection')}</li>
+        <li>{t('Parti takibi', 'Batch tracking')}</li>
       </ul>
     </article>
 
     <div class="chain__link" aria-hidden="true"><span data-draw></span></div>
 
     <article class="chain__node chain__node--core" data-reveal>
-      <p class="chain__tag">POSAVER dönüşüm noktası</p>
-      <h3>Posadan koku girdisine</h3>
+      <p class="chain__tag">{t('POSAVER dönüşüm noktası', 'POSAVER conversion point')}</p>
+      <h3>{t('Posadan koku girdisine', 'From grounds to fragrance ingredient')}</h3>
       <ol>
-        <li>Yerel toplama</li>
-        <li>Kurutma</li>
-        <li>Ekstraksiyon</li>
-        <li>Filtrasyon</li>
-        <li>İzlenebilirlik (QR / parti verisi)</li>
+        <li>{t('Yerel toplama', 'Local collection')}</li>
+        <li>{t('Kurutma', 'Drying')}</li>
+        <li>{t('Ekstraksiyon', 'Extraction')}</li>
+        <li>{t('Filtrasyon', 'Filtration')}</li>
+        <li>{t('İzlenebilirlik (QR / parti verisi)', 'Traceability (QR / batch data)')}</li>
       </ol>
     </article>
 
     <div class="chain__link" aria-hidden="true"><span data-draw></span></div>
 
     <article class="chain__node card" data-reveal>
-      <p class="chain__tag">B2B müşteri</p>
-      <h3>Parfüm, esans ve kozmetik üreticileri</h3>
+      <p class="chain__tag">{t('B2B müşteri', 'B2B customer')}</p>
+      <h3>{t('Parfüm, esans ve kozmetik üreticileri', 'Perfume, essence and cosmetics makers')}</h3>
       <p class="chain__note">
-        Kaynağı belirli, izlenebilir ve proses verisiyle desteklenen koku girdisi.
+        {t('Kaynağı belirli, izlenebilir ve proses verisiyle desteklenen koku girdisi.', 'A fragrance ingredient with a known source, traceable and backed by process data.')}
       </p>
       <p class="chain__note">
-        AB’nin CSRD gibi sürdürülebilirlik raporlama kuralları, büyük markalardan tedarik zinciri emisyonlarını da istiyor. Ölçülmüş ve izlenebilir girdi bu yüzden değer taşıyor.
+        {t('AB’nin CSRD gibi sürdürülebilirlik raporlama kuralları, büyük markalardan tedarik zinciri emisyonlarını da istiyor. Ölçülmüş ve izlenebilir girdi bu yüzden değer taşıyor.', 'EU sustainability reporting rules such as the CSRD ask big brands to report supply-chain emissions too. That is why a measured, traceable ingredient is valuable.')}
       </p>
     </article>
   </div>
 
-  <p class="source-note">POSAVER Araştırma, karbon ticareti ve AB mevzuatı (Ekim 2026)</p>
+  <p class="source-note">{t('POSAVER Araştırma, karbon ticareti ve AB mevzuatı (Ekim 2026)', 'POSAVER research on carbon trading and EU regulation (October 2026)')}</p>
 </SectionShell>
 
 <style>

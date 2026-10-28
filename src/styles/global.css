@@ -246,6 +246,9 @@ canvas {
   content: 'Kaynaklar: ';
   font-weight: 600;
 }
+:lang(en) .source-note::before {
+  content: 'Sources: ';
+}
 
 .btn {
   display: inline-flex;

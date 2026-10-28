@@ -1,29 +1,44 @@
 ---
+import { tx, type Lang } from '../../lib/i18n';
 import SectionShell from '../SectionShell.astro';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 ---
 
-<SectionShell id="neden-onemli" tone="dark-forest" kicker="Neden önemli?" title="Bir kupa kahvenin görünmeyen iklim bedeli">
+<SectionShell id="neden-onemli" tone="dark-forest" kicker={t('Neden önemli?', 'Why it matters')} title={t('Bir kupa kahvenin görünmeyen iklim bedeli', 'The hidden climate price of a cup of coffee')}>
   <ul class="stats">
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="86">86</span><span class="stat__u">kat</span></p>
-      <p class="stat__d">Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi.</p>
+      <p class="stat__v"><span data-count="86">86</span><span class="stat__u">{t('kat', 'times')}</span></p>
+      <p class="stat__d">
+        {
+          lang === 'en' ? (
+            <>Warming effect of methane from rotting grounds compared with CO<sub>2</sub> over the first 20 years.</>
+          ) : (
+            <>Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi.</>
+          )
+        }
+      </p>
     </li>
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="18">18</span><span class="stat__u">milyon ton</span></p>
-      <p class="stat__d">Dünyada yılda yaklaşık oluşan ıslak kahve posası.</p>
+      <p class="stat__v"><span data-count="18">18</span><span class="stat__u">{t('milyon ton', 'million tonnes')}</span></p>
+      <p class="stat__d">{t('Dünyada yılda yaklaşık oluşan ıslak kahve posası.', 'Wet coffee grounds produced worldwide each year, roughly.')}</p>
     </li>
     <li class="stat" data-reveal>
-      <p class="stat__v stat__v--text">AB Atık Çerçeve Direktifi</p>
-      <p class="stat__d">Biyo-atığın kaynağında ayrıştırılmasını veya ayrı toplanmasını öngörüyor.</p>
+      <p class="stat__v stat__v--text">{t('AB Atık Çerçeve Direktifi', 'EU Waste Framework Directive')}</p>
+      <p class="stat__d">{t('Biyo-atığın kaynağında ayrıştırılmasını veya ayrı toplanmasını öngörüyor.', 'Requires bio-waste to be separated or collected separately at the source.')}</p>
     </li>
     <li class="stat" data-reveal>
-      <p class="stat__v"><span class="stat__nw"><span data-count="24">24</span>–<span data-count="48">48</span></span><span class="stat__u">saat</span></p>
-      <p class="stat__d">Posa bu sürede küflendiği için yerel çözüm gerekiyor.</p>
+      <p class="stat__v"><span class="stat__nw"><span data-count="24">24</span>–<span data-count="48">48</span></span><span class="stat__u">{t('saat', 'hours')}</span></p>
+      <p class="stat__d">{t('Posa bu sürede küflendiği için yerel çözüm gerekiyor.', 'Grounds go mouldy in this time, so the solution has to be local.')}</p>
     </li>
   </ul>
 
   <blockquote class="statement quote" data-reveal>
-    “Küçük ve dağınık görünen bir atık akışı, metan gazının yüksek kısa dönemli ısınma etkisi nedeniyle yerelde hızlı müdahale gerektiriyor.”
+    {t('“Küçük ve dağınık görünen bir atık akışı, metan gazının yüksek kısa dönemli ısınma etkisi nedeniyle yerelde hızlı müdahale gerektiriyor.”', '“A waste stream that looks small and scattered calls for a fast local response, because methane has such a strong short-term warming effect.”')}
   </blockquote>
 
   <p class="source-note">IFST (2021); IPCC AR6; EU Waste Framework Directive</p>

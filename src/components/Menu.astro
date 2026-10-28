@@ -1,20 +1,36 @@
 ---
 import { url } from '../lib/url';
 import { sections } from '../data/sections';
+import { tx, homePath, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'tr' } = Astro.props;
+const t = (tr: string, en: string) => tx(lang, tr, en);
 
 const items = sections.map((s, i) => ({
-  href: url(`/#${s.id}`),
-  label: s.menu,
+  href: url(`${homePath(lang)}#${s.id}`),
+  label: t(s.menu, s.menuEn),
   n: String(i + 1).padStart(2, '0'),
 }));
 ---
 
-<button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç">
+<button
+  class="menu-btn"
+  id="menu-btn"
+  type="button"
+  aria-expanded="false"
+  aria-controls="menu"
+  aria-label={t('Menüyü aç', 'Open menu')}
+  data-label-open={t('Menüyü aç', 'Open menu')}
+  data-label-close={t('Menüyü kapat', 'Close menu')}
+>
   <span class="menu-btn__bar"></span>
   <span class="menu-btn__bar"></span>
 </button>
 
-<nav class="menu" id="menu" aria-label="Ana menü" inert>
+<nav class="menu" id="menu" aria-label={t('Ana menü', 'Main menu')} inert>
   <div class="menu__inner">
     <ul class="menu__list" style={`--rows:${Math.ceil(items.length / 2)}`}>
       {
@@ -29,7 +45,7 @@ const items = sections.map((s, i) => ({
       }
     </ul>
     <p class="menu__foot menu__item">
-      <a href={url('/blog')}>Tüm blog yazıları</a>
+      <a href={url('/blog')}>{t('Tüm blog yazıları', 'All blog posts (Turkish)')}</a>
       <span>EU Climate Ideathon 2026</span>
     </p>
   </div>
