@@ -1,0 +1,143 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const give = [
+  'Ücretsiz, düzenli toplama ve kapaklı kova',
+  'Yıllık kaçınılan CO₂ raporu (kredi değil, raporlama)',
+  '“Sıfır Atık Kafe” etiketi (belediyeyle görüşülüyor)',
+  'Kendi posasından üretilmiş ürün: konsinye, raf fiyatının %30’u kafeye',
+  'Sosyal medyada ve web sitesinde kafe tanıtımı',
+];
+
+const take = [
+  'Yalnızca espresso posası, kahve dışı atık karışmadan',
+  'Günlük ağırlık kaydına izin (QR)',
+  'En az 3 aylık katılım',
+  'Ürünü rafta sergileme ve satış',
+];
+
+const routes = [
+  { n: '20 kafeye kadar', t: 'Kargo bisikleti', d: 'Tek ilçe kümesinde, 5–10 km bisiklet menzilinde. Toplama maliyeti ve emisyonu sıfır.' },
+  { n: '50 kafe', t: 'Sabit güzergâh', d: 'Bisiklet ve küçük araç; her gün aynı saatte aynı sırayla. Kafe personelinin rutini değişmez.' },
+  { n: '100–200 kafe', t: 'Mikro merkezler', d: 'Her ilçeye bir ön işlem noktası. Posa merkeze taşınmadan önce orada kurutulur, ağırlık ve kilometre yarıya iner.' },
+];
+---
+
+<SectionShell id="kafe-ortakligi" tone="dark-espresso" kicker="Kafe ortaklığı" title="Kafe için adil oran">
+  <p class="section__lead" data-reveal>
+    Posasını veren kafe karşılığında rapor, görünürlük ve ek gelir kazanır. Kafenin tek işi, posayı ayrı kaba almak.
+  </p>
+
+  <div class="deal">
+    <article class="deal__col card" data-reveal>
+      <h3>Kafeye verdiğimiz</h3>
+      <ul>
+        {give.map((g) => <li>{g}</li>)}
+      </ul>
+    </article>
+    <article class="deal__col card" data-reveal>
+      <h3>Kafeden aldığımız</h3>
+      <ul>
+        {take.map((g) => <li>{g}</li>)}
+      </ul>
+      <p class="deal__note">Münhasırlık yok. Satılmayan ürün geri alınır, kafe stok riski almaz.</p>
+    </article>
+  </div>
+
+  <div class="route">
+    <h3 data-reveal>Toplama nasıl ölçeklenir?</h3>
+    <ol class="route__list">
+      {
+        routes.map((r) => (
+          <li class="route__item" data-reveal>
+            <span class="route__n">{r.n}</span>
+            <h4>{r.t}</h4>
+            <p>{r.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <p class="statement" data-reveal>
+    Kural: posa <em>hiçbir zaman tek amaçlı araç seferiyle</em> taşınmaz.
+  </p>
+  <p class="rule" data-reveal>
+    Modelimizde çöpten kurtarılan emisyon yaklaşık 0,63 kg CO<sub>2</sub>e / kg ıslak posa. Araçlı toplama bunun yaklaşık dörtte birini yiyor, bisikletle toplama ise hiçbirini.
+  </p>
+
+  <p class="source-note">POSAVER lojistik ve kafe ortaklığı çalışması, maliyet modeli varsayımları (Ekim 2026)</p>
+</SectionShell>
+
+<style>
+  .deal {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.6vw, 1.25rem);
+  }
+  .deal__col {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+  .deal__col ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--muted);
+  }
+  .deal__note {
+    color: var(--accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  .route {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .route__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+  .route__item {
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .route__n {
+    font-size: var(--text-small);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .route h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+  }
+  .route p {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+  .rule {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 899px) {
+    .deal,
+    .route__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

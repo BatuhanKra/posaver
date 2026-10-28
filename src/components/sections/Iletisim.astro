@@ -49,6 +49,9 @@ const mail = (subject: string) => `mailto:${site.contactEmail}?subject=${encodeU
     </div>
     <button class="btn btn--solid" type="submit">E-posta uygulamasında aç</button>
   </form>
+  <p class="team" data-reveal>
+    <span>Ekip</span> Fatmanur Doğan · Batuhan Kara · Orhan Bilgin · Ali Açmak
+  </p>
 </SectionShell>
 
 <script>
@@ -63,6 +66,15 @@ const mail = (subject: string) => `mailto:${site.contactEmail}?subject=${encodeU
 </script>
 
 <style>
+  .team {
+    color: var(--muted);
+    font-size: var(--text-small);
+  }
+  .team span {
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 0.75rem;
+  }
   .ctas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -1,0 +1,114 @@
+---
+import SectionShell from '../SectionShell.astro';
+
+const items = [
+  {
+    s: 'Tamamlandı',
+    k: 'done',
+    t: 'Kayseri birincisi',
+    d: 'AB Türkiye Delegasyonu desteğiyle düzenlenen EU Climate Ideathon 2026 Kayseri yerel finalinde birinci olduk.',
+  },
+  {
+    s: 'Sürüyor',
+    k: 'live',
+    t: 'Sahada pilot',
+    d: 'Abdullah Gül Üniversitesi kampüsündeki 3 kafede ayrı posa toplama pilotu: toplama, kayıt ve rota adımları gerçek kafe akışında test ediliyor.',
+  },
+  {
+    s: 'Taahhüt',
+    k: 'done',
+    t: 'Sözleşmeye giren şart',
+    d: 'AGÜ’nün 2027–2028 dönemi kafe ihale sözleşmelerine atık kahve posası toplama şartı eklendi.',
+  },
+  {
+    s: 'Sürüyor',
+    k: 'live',
+    t: 'Laboratuvar',
+    d: 'Erciyes Üniversitesi Eczacılık Fakültesi laboratuvarında aroma geri kazanım deneyleri: kurutma koşulları, etanol ekstraksiyonu ve filtrasyon.',
+  },
+  {
+    s: 'Sürüyor',
+    k: 'live',
+    t: 'Parfüm tarafı',
+    d: 'Auran Kozmetik ile ekstraktın kategorik denemesi: kahve notasının hangi koku ailelerinde kullanılabileceği değerlendiriliyor.',
+  },
+  {
+    s: '9–20 Kasım 2026',
+    k: 'next',
+    t: 'COP31 ulusal final',
+    d: 'Kayseri birincisi olarak, Antalya’daki COP31 kapsamında yapılacak ulusal finale saha ve laboratuvar sonuçlarıyla gidiyoruz.',
+  },
+];
+---
+
+<SectionShell id="ilerleme" tone="light" kicker="Gelinen nokta" title="Fikirden sahaya, sahadan laboratuvara">
+  <ul class="progress">
+    {
+      items.map((i) => (
+        <li class="progress__item card" data-reveal>
+          <span class={`chip chip--${i.k}`}>{i.s}</span>
+          <h3>{i.t}</h3>
+          <p>{i.d}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="statement" data-reveal>
+    2027–2028 hedefi: sözleşmeli toplama modeliyle önce <em>20 kafeye</em>, dönem sonunda <em>200 kafeye</em>.
+  </p>
+
+  <p class="source-note">POSAVER proje dosyası (Ekim 2026)</p>
+</SectionShell>
+
+<style>
+  .progress {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.6vw, 1.25rem);
+  }
+  .progress__item {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+  .progress__item p {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+  .chip {
+    justify-self: start;
+    font-size: var(--text-small);
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.06);
+    color: var(--ink);
+  }
+  .chip--live {
+    background: rgb(111 143 78 / 0.16);
+    color: #3f5a27;
+  }
+  .chip--done {
+    background: rgb(31 58 43 / 0.12);
+    color: var(--forest);
+  }
+  .chip--next {
+    background: rgb(138 90 59 / 0.14);
+    color: var(--roast);
+  }
+
+  @media (max-width: 1023px) {
+    .progress {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 639px) {
+    .progress {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

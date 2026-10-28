@@ -51,6 +51,6 @@ const layers = [
     )
   }
   {kicker && <p class="section__kicker">{kicker}</p>}
-  <Heading id={`${id}-title`} data-split>{title}</Heading>
+  <Heading id={`${id}-title`} data-split>{Astro.slots.has('title') ? <slot name="title" /> : title}</Heading>
   <slot />
 </section>

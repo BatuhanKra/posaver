@@ -66,7 +66,7 @@ export function initCup() {
 
   // Hedef (scroll) ve görüntülenen (lerp) durum
   const target = { p: 0, h: 0 };
-  const cur = { p: 0, h: 0, opacity: 1 };
+  const cur = { p: 0, h: 0, opacity: 1, presence: 1 };
   const steamTarget = STEAM_CREMA.clone();
   let W = 0;
   let H = 0;
@@ -124,23 +124,24 @@ export function initCup() {
 
   function apply(time: number) {
     const l = layout(cur.h);
-    cup.group.scale.setScalar(l.s);
+    const sc = l.s * (0.8 + 0.2 * cur.presence);
+    cup.group.scale.setScalar(sc);
     const bob = reduceMotion ? 0 : Math.sin(time * 0.9) * 0.03;
-    cup.group.position.y = PIVOT_Y * (1 - l.s) + bob * l.s;
+    cup.group.position.y = PIVOT_Y * (1 - sc) + bob * sc;
     cup.group.rotation.y = ROT_START + cur.p * TURNS * Math.PI * 2;
     cup.group.rotation.z = motion.lean;
     cup.group.rotation.x = -motion.lean * 0.35 + (reduceMotion ? 0 : Math.sin(time * 0.7) * 0.012);
     orbit.group.scale.copy(cup.group.scale);
     orbit.group.position.copy(cup.group.position);
-    orbit.update(time, -cur.p * 7 * Math.PI * 2, smooth(0.52, 0.78, cur.p), W < 768 ? 0.78 : 1);
-    camera.setViewOffset(W, H, -l.dx, -l.dy, W, H);
+    orbit.update(time, -cur.p * 7 * Math.PI * 2, smooth(0.45, 0.7, cur.p), W < 768 ? 0.78 : 1);
+    camera.setViewOffset(W, H, -l.dx, -l.dy + (1 - cur.presence) * H * 0.08, W, H);
 
     const level = THREE.MathUtils.lerp(LEVEL_MAX, LEVEL_MIN, smooth(0, 1, cur.p));
-    cup.setLevel(level, 1 - smooth(0.82, 0.97, cur.p));
+    cup.setLevel(level, 1 - smooth(0.68, 0.84, cur.p));
 
     steam.uniforms.uTime.value = time;
     steam.uniforms.uScale.value =
-      (renderer.getPixelRatio() * H) / (2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2))) * l.s;
+      (renderer.getPixelRatio() * H) / (2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2))) * sc;
     steam.uniforms.uOpacity.value = 0.34 * (1 - 0.5 * smooth(0.75, 1, cur.p));
     steam.uniforms.uColor.value.lerp(steamTarget, 0.04);
     steam.uniforms.uSway.value = motion.lean * 6;
@@ -189,6 +190,16 @@ export function initCup() {
   });
   ScrollTrigger.addEventListener('refresh', collectAvoid);
 
+  // Fincan hikâyenin ilk bölümünde (Çözüm'e kadar) görünür, sonra kaybolur, kapanışta geri gelir
+  const hideAfter = document.getElementById('cozum');
+  const returnAt = document.getElementById('neden-posaver');
+  const presenceTarget = () => {
+    if (!hideAfter || !returnAt) return 1;
+    const out = 1 - smooth(H * 0.45, H, hideAfter.getBoundingClientRect().bottom);
+    const back = 1 - smooth(H * 0.45, H, returnAt.getBoundingClientRect().top);
+    return THREE.MathUtils.clamp(1 - out + back, 0, 1);
+  };
+
   let raf = 0;
   let last = performance.now();
   let t = 0;
@@ -202,6 +213,7 @@ export function initCup() {
     const k = 1 - Math.exp(-dt * 7);
     cur.p += (target.p - cur.p) * k;
     cur.h += (target.h - cur.h) * k;
+    cur.presence += (presenceTarget() - cur.presence) * k;
 
     const v = (target.p - motion.prevP) / Math.max(dt, 0.001);
     motion.prevP = target.p;
@@ -209,12 +221,19 @@ export function initCup() {
     const wantLean = THREE.MathUtils.clamp(motion.vel * 5, -0.14, 0.14);
     motion.lean += (wantLean - motion.lean) * (1 - Math.exp(-dt * 5));
 
+    if (cur.presence < 0.01) {
+      canvas.style.visibility = 'hidden';
+      raf = requestAnimationFrame(tick);
+      return;
+    }
+    canvas.style.visibility = 'visible';
+
     const l = apply(t);
     if (frame % 6 === 0) {
       const want = overlapsText(l) ? FADED_OPACITY : 1;
       cur.opacity += (want - cur.opacity) * 0.35;
     }
-    canvas.style.opacity = String(cur.opacity.toFixed(3));
+    canvas.style.opacity = (cur.opacity * cur.presence).toFixed(3);
 
     renderer.render(scene, camera);
     raf = requestAnimationFrame(tick);

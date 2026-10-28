@@ -3,7 +3,11 @@ import { url } from '../../lib/url';
 import SectionShell from '../SectionShell.astro';
 ---
 
-<SectionShell id="hero" tone="dark-espresso" kicker="EU Climate Ideathon 2026" title="Kahvenin kokusu çöpe gitmesin." heading="h1">
+<SectionShell id="hero" tone="dark-espresso" kicker="EU Climate Ideathon 2026 · Kayseri birincisi" title="Kahve biter. Koku kalır. Çöpe gitmesin." heading="h1">
+  <Fragment slot="title">
+    Kahve biter<span class="dot">.</span> Koku kalır<span class="dot">.</span><br />
+    <span class="hero__em">Çöpe gitmesin<span class="dot">.</span></span>
+  </Fragment>
   <p class="section__lead hero__lead" data-reveal>
     Kafelerde çöpe giden kahve posasını toplayıp aromasını geri kazanıyor, parfüm ve esans üreticileri için izlenebilir
     bir koku girdisine dönüştürüyoruz.
@@ -26,7 +30,21 @@ import SectionShell from '../SectionShell.astro';
       var(--espresso);
   }
   #hero h1 {
-    max-width: 14ch;
+    max-width: 22ch;
+    font-size: clamp(2.6rem, min(5.6vw, 10.5vh), 6.25rem);
+  }
+  #hero .dot {
+    color: var(--accent);
+  }
+  #hero .hero__em {
+    background: linear-gradient(95deg, #f5efe6 0%, #a6cb83 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  #hero .hero__em .dot {
+    color: #a6cb83;
+    -webkit-text-fill-color: #a6cb83;
   }
   #hero .hero__lead {
     font-size: clamp(1.1rem, min(1.7vw, 3vh), 1.6rem);
@@ -47,7 +65,7 @@ import SectionShell from '../SectionShell.astro';
       padding-top: 6.5rem;
     }
     #hero h1 {
-      font-size: clamp(2.5rem, 12.5vw, 3.6rem);
+      font-size: clamp(2.3rem, 10.5vw, 3.2rem);
     }
   }
 </style>
