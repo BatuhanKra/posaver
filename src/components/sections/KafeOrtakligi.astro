@@ -24,13 +24,13 @@ const take = [
 ];
 
 const routes = [
-  { n: t('20 kafeye kadar', 'Up to 20 cafés'), t: t('Kargo bisikleti', 'Cargo bike'), d: t('Tek ilçe kümesinde, 5–10 km bisiklet menzilinde. Toplama maliyeti ve emisyonu sıfır.', 'Within a single district cluster, 5–10 km of cycling range. Collection cost and emissions are zero.') },
-  { n: t('50 kafe', '50 cafés'), t: t('Sabit güzergâh', 'Fixed route'), d: t('Bisiklet ve küçük araç; her gün aynı saatte aynı sırayla. Kafe personelinin rutini değişmez.', 'Bike and small vehicle; the same order at the same time every day. The café staff’s routine does not change.') },
+  { n: t('20 kafeye kadar', 'Up to 20 cafés'), t: t('Yakın mesafe toplama', 'Short-range collection'), d: t('Tek ilçe kümesinde, kısa mesafeli toplama. Taşıma maliyeti ve emisyonu en düşük düzeyde.', 'Within a single district cluster, over short distances. Transport cost and emissions stay at their lowest.') },
+  { n: t('50 kafe', '50 cafés'), t: t('Sabit güzergâh', 'Fixed route'), d: t('Küçük araçla, her gün aynı saatte aynı sırayla. Kafe personelinin rutini değişmez.', 'By small vehicle, in the same order at the same time every day. The café staff’s routine does not change.') },
   { n: t('100–200 kafe', '100–200 cafés'), t: t('Mikro merkezler', 'Micro hubs'), d: t('Her ilçeye bir ön işlem noktası. Posa merkeze taşınmadan önce orada kurutulur, ağırlık ve kilometre yarıya iner.', 'A pre-processing point in every district. Grounds are dried there before moving to the main site, so weight and kilometres are halved.') },
 ];
 ---
 
-<SectionShell id="kafe-ortakligi" tone="dark-espresso" kicker={t('Kafe ortaklığı', 'Café partnership')} title={t('Kafe için adil oran', 'A fair deal for the café')}>
+<SectionShell id="kafe-ortakligi" tone="dark-espresso" kicker={t('Kafe ortaklığı', 'Café partnership')} title={t('Kafe ortaklığı nasıl işler?', 'How the café partnership works')}>
   <p class="section__lead" data-reveal>
     {t('Posasını veren kafe karşılığında rapor, görünürlük ve ek gelir kazanır. Kafenin tek işi, posayı ayrı kaba almak.', 'A café that gives us its grounds gets a report, visibility and extra income in return. The café’s only job is to put the grounds in a separate container.')}
   </p>
@@ -78,9 +78,9 @@ const routes = [
   <p class="rule" data-reveal>
     {
       lang === 'en' ? (
-        <>In our model the emissions saved by diverting grounds from the bin are about 0.63 kg CO<sub>2</sub>e per kg of wet grounds. Collecting by vehicle eats roughly a quarter of that; collecting by bike eats none.</>
+        <>In our model the emissions saved by diverting grounds from the bin are about 0.63 kg CO<sub>2</sub>e per kg of wet grounds. Collecting by vehicle eats roughly a quarter of that, which is why we keep collection short and planned.</>
       ) : (
-        <>Modelimizde çöpten kurtarılan emisyon yaklaşık 0,63 kg CO<sub>2</sub>e / kg ıslak posa. Araçlı toplama bunun yaklaşık dörtte birini yiyor, bisikletle toplama ise hiçbirini.</>
+        <>Modelimizde çöpten kurtarılan emisyon yaklaşık 0,63 kg CO<sub>2</sub>e / kg ıslak posa. Araçlı toplama bunun yaklaşık dörtte birini yiyor; bu yüzden toplamayı kısa ve planlı tutuyoruz.</>
       )
     }
   </p>
