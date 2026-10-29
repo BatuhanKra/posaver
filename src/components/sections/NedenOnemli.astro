@@ -12,13 +12,13 @@ const t = (tr: string, en: string) => tx(lang, tr, en);
 <SectionShell id="neden-onemli" tone="dark-forest" kicker={t('Neden önemli?', 'Why it matters')} title={t('Bir kupa kahvenin görünmeyen iklim bedeli', 'The hidden climate price of a cup of coffee')}>
   <ul class="stats">
     <li class="stat" data-reveal>
-      <p class="stat__v"><span data-count="86">86</span><span class="stat__u">{t('kat', 'times')}</span></p>
+      <p class="stat__v"><span data-count="80">80</span><span class="stat__u">{t('kat', 'times')}</span></p>
       <p class="stat__d">
         {
           lang === 'en' ? (
-            <>Warming effect of methane from rotting grounds compared with CO<sub>2</sub> over the first 20 years.</>
+            <>Warming effect of methane from rotting grounds compared with CO<sub>2</sub> over the first 20 years (approximate).</>
           ) : (
-            <>Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi.</>
+            <>Oksijensiz çürüyen posadan çıkan metanın, CO<sub>2</sub>'ye kıyasla ilk 20 yıldaki ısınma etkisi (yaklaşık).</>
           )
         }
       </p>
@@ -41,7 +41,7 @@ const t = (tr: string, en: string) => tx(lang, tr, en);
     {t('“Küçük ve dağınık görünen bir atık akışı, metan gazının yüksek kısa dönemli ısınma etkisi nedeniyle yerelde hızlı müdahale gerektiriyor.”', '“A waste stream that looks small and scattered calls for a fast local response, because methane has such a strong short-term warming effect.”')}
   </blockquote>
 
-  <p class="source-note">IFST (2021); IPCC AR6; EU Waste Framework Directive</p>
+  <p class="source-note">IFST (2021); IPCC AR6 (2021); EU Waste Framework Directive</p>
 </SectionShell>
 
 <style>
